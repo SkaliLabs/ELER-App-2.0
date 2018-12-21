@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>ELER-App 2.0</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <STYLE type="text/css">
+	    	td {
+	    		height: 30;
+	    		width: 40;
+	    	}
+	    	table.raum {
+	    		border: 3px solid gray;
+	    		border-radius: 5px;
+	    		rules: 'none';
+	    		width: 160;
+	    		height: 90;
+	    	}
+	    </STYLE>
+	</head>
+	<body>
+		<TABLE>
+			<TR>
+				<TD></TD>
+				<TD></TD>
+				<TD>
+					<TABLE class="raum">
+						<TR>
+							<TD align=right>
+								<TABLE bordercolor='black' rules='all' border=0 class="wald">
+									<TR>
+										<TD align=middle><p th:text="${platz1261}"/></TD>
+										<TD align=middle><p th:text="${platz1262}"/></TD>
+									</TR>
+									<TR>
+										<TD align=middle><p th:text="${platz1263}"/></TD>
+										<TD align=middle><p th:text="${platz1264}"/></TD>
+									</TR>
+								</TABLE>
+							</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				<TD><FONT size=7>|</FONT></TD>
+			</TR>
+			<TR>
+				<TD align=right><FONT size=7>|</FONT></TD>
+				<TD>
+					<TABLE class="raum">
+						<TR>
+							<TD>
+								<TABLE bordercolor='black' rules='all' border=0 class="wiese">
+									<TR>
+										<TD align=middle><p th:text="${platz1211}"/></TD>
+										<TD align=middle><p th:text="${platz1212}"/></TD>
+									</TR>
+									<TR>
+										<TD align=middle><p th:text="${platz1213}"/></TD>
+										<TD align=middle><p th:text="${platz1214}"/></TD>
+									</TR>
+								</TABLE>
+							</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				<TD>
+					<TABLE class="raum">
+						<TR>
+							<TD align=right>
+								<TABLE bordercolor='black' rules='all' border=0 class="strand">
+									<TR>
+										<TD align=middle><p th:text="${platz1251}"/></TD>
+										<TD align=middle><p th:text="${platz1252}"/></TD>
+									</TR>
+									<TR>
+										<TD align=middle><p th:text="${platz1253}"/></TD>
+										<TD align=middle><p th:text="${platz1254}"/></TD>
+									</TR>
+								</TABLE>
+							</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				<TD><FONT size=7>|</FONT></TD>
+			</TR>
+		</TABLE>
+</body>
+</html>
