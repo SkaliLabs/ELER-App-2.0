@@ -17,11 +17,13 @@ package de.data_experts.eler.eler_app.gui;
 import java.util.List;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.page.Page;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
@@ -43,7 +45,11 @@ public class SitzplanView extends VerticalLayout {
     add( new Button( "Begrüßen!", e -> Notification.show( "Hallo!" ) ) );
     List<Raum> raeume = raumRepository.findAll();
     List<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findAll();
-    add( new Button( "Würfeln!", e -> konfigurationRepository.save(strategie.generiereVerteilung(raeume, mitarbeiter) )));
+    add( new Button( "Würfeln!", e -> 
+    {
+    konfigurationRepository.save(strategie.generiereVerteilung(raeume, mitarbeiter) );
+    	UI.getCurrent().getPage().reload();
+    }));
   }
 
   private Component getRaum() {

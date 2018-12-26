@@ -28,11 +28,14 @@ public class MitarbeiterView extends VerticalLayout {
   public MitarbeiterView( MitarbeiterRepository repo ) {
     Grid<Mitarbeiter> grid = new Grid<>( Mitarbeiter.class );
     grid.setItems( repo.findAll() );
-    grid.getColumns().forEach( column -> grid.removeColumn( column ) );
-    grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );
-    grid.addColumn( Mitarbeiter::isAktiv ).setHeader( "Status" );
+    //grid.getColumns().forEach( column -> grid.removeColumn( column ) );
+    grid.removeColumnByKey("id");
+    grid.removeColumnByKey("vorname");
+    grid.removeColumnByKey("nachname");
+    grid.removeColumnByKey("name");
+    //grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );
+    //grid.addColumn( Mitarbeiter::isAktiv ).setHeader( "Status" );
     grid.setHeightByRows( true );
     add( grid );
   }
-
 }
