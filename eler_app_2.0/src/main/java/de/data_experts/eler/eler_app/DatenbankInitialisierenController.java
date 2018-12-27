@@ -67,6 +67,7 @@ public class DatenbankInitialisierenController {
     mitarbeiterRepository.save( new Mitarbeiter( "lede", "Mu", "mu" ) );
     mitarbeiterRepository.save( new Mitarbeiter( "lede", "Skl", "skl" ) );
     mitarbeiterRepository.save( new Mitarbeiter( "lede", "Sta", "sta" ) );
+    mitarbeiterRepository.save( new Mitarbeiter( "lede", "Fs", "fs", false ) );
   }
 
   private void initialisiereRaeume() {

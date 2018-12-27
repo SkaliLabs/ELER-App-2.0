@@ -56,6 +56,10 @@ public class Mitarbeiter {
     return aktiv;
   }
 
+  public void setAktiv( boolean aktiv ) {
+    this.aktiv = aktiv;
+  }
+
   // -- public Methoden --------------------------------------------------------
 
   @Override
