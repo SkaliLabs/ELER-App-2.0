@@ -42,7 +42,7 @@ public class SitzplanView extends VerticalLayout {
       MitarbeiterRepository mitarbeiterRepository, VerteilungStrategie strategie ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    add( new H3( "Aktuelle Konfiguration gÃ¼ltig von " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis "
+    add( new H3( "Aktuelle Konfiguration gültig von " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis "
         + aktuelleKonfiguration.getGueltigBisAlsString() ) );
 
     HorizontalLayout raumreihe1 = new HorizontalLayout();
@@ -56,7 +56,7 @@ public class SitzplanView extends VerticalLayout {
     List<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findAll();
     add( raumreihe2 );
 
-    add( new Button( "WÃ¼rfeln!", e -> {
+    add( new Button( "Würfeln!", e -> {
       konfigurationRepository.save( strategie.generiereVerteilung( raeume, mitarbeiter ) );
       UI.getCurrent().getPage().reload();
     } ) );
