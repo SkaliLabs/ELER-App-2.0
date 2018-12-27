@@ -107,16 +107,16 @@ public class DatenbankInitialisierenController {
       return;
 
     List<Platzzuordnung> zuordnungen = new ArrayList<>();
-    zuordnungen.add( new Platzzuordnung( platz( 1261L ), mitarbeiter( "ali" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1262L ), mitarbeiter( "mn" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1263L ), mitarbeiter( "mu" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1264L ), mitarbeiter( "cp" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1252L ), mitarbeiter( "sta" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1253L ), mitarbeiter( "gkn" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1211L ), mitarbeiter( "skl" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1212L ), mitarbeiter( "dst" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1213L ), mitarbeiter( "jk" ) ) );
-    zuordnungen.add( new Platzzuordnung( platz( 1214L ), mitarbeiter( "mare" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1261L ), mitarbeiter( "cp" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1262L ), mitarbeiter( "mu" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1263L ), mitarbeiter( "mn" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1264L ), mitarbeiter( "ali" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1252L ), mitarbeiter( "gkn" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1253L ), mitarbeiter( "sta" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1211L ), mitarbeiter( "mare" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1212L ), mitarbeiter( "jk" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1213L ), mitarbeiter( "dst" ) ) );
+    zuordnungen.add( new Platzzuordnung( platz( 1214L ), mitarbeiter( "skl" ) ) );
     konfigurationRepository.save( new Konfiguration( zuordnungen, new Date( 118, 8, 1 ), new Date( 118, 10, 1 ) ) );
   }
 

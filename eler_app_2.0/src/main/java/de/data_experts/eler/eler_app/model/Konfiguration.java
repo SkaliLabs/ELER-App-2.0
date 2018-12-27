@@ -80,12 +80,13 @@ public class Konfiguration {
   // -- public Methoden --------------------------------------------------------
 
   public String getKuerzelZuPlatzId( long platzId ) {
-    Platzzuordnung platzzuordnung = platzzuordnungen.stream()
-        .filter( zuordnung -> zuordnung.getPlatz().getId() == platzId ).findFirst().get();
-    if ( platzzuordnung == null )
-      return "";
-    Mitarbeiter mitarbeiter = platzzuordnung.getMitarbeiter();
-    return mitarbeiter == null ? "" : mitarbeiter.getKuerzel();
+    for ( Platzzuordnung zuordnung : platzzuordnungen ) {
+      if ( zuordnung.getPlatz().getId() == platzId ) {
+        Mitarbeiter mitarbeiter = zuordnung.getMitarbeiter();
+        return mitarbeiter == null ? "" : mitarbeiter.getKuerzel();
+      }
+    }
+    return "";
   }
 
   public Map<Raum, List<Platzzuordnung>> getPlatzzuordnungenJeRaum() {
@@ -160,7 +161,8 @@ public class Konfiguration {
       result.append( "\n" + raum.getBezeichnung() + "\n" );
       for ( Platzzuordnung zuordnung : zuordnungenJeRaum.get( raum ) ) {
         if ( zuordnung.getMitarbeiter() != null )
-          result.append( zuordnung.getPlatz().getBezeichnung() + ": " + zuordnung.getMitarbeiter().getName() + "\n" );
+          result.append(
+              zuordnung.getPlatz().getBezeichnung() + ": " + zuordnung.getMitarbeiter().getName() + "\n" );
         else
           result.append( zuordnung.getPlatz().getBezeichnung() + ":\n" );
       }

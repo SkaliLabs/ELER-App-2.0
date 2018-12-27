@@ -18,10 +18,9 @@ import java.util.List;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
@@ -36,25 +35,32 @@ import de.data_experts.eler.eler_app.model.Raum;
 public class SitzplanView extends VerticalLayout {
 
   private final Konfiguration aktuelleKonfiguration;
-  
-  public SitzplanView(KonfigurationRepository konfigurationRepository,RaumRepository raumRepository,MitarbeiterRepository mitarbeiterRepository,VerteilungStrategie strategie) {
+
+  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumRepository raumRepository,
+      MitarbeiterRepository mitarbeiterRepository, VerteilungStrategie strategie ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
-    add( getRaum() );
-    add( new Button( "Begrüßen!", e -> Notification.show( "Hallo!" ) ) );
+    HorizontalLayout raumreihe1 = new HorizontalLayout();
+    raumreihe1.add( getRaum( 125, Fensterseite.LINKS ) );
+    raumreihe1.add( getRaum( 121, Fensterseite.RECHTS ) );
+    HorizontalLayout raumreihe2 = new HorizontalLayout();
+    raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     List<Raum> raeume = raumRepository.findAll();
     List<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findAll();
-    add( new Button( "Würfeln!", e -> konfigurationRepository.save(strategie.generiereVerteilung(raeume, mitarbeiter) )));
+    add( raumreihe1 );
+    add( raumreihe2 );
+    add( new Button( "WÃ¼rfeln!",
+        e -> konfigurationRepository.save( strategie.generiereVerteilung( raeume, mitarbeiter ) ) ) );
   }
 
-  private Component getRaum() {
-    Label platz1 = createPlatz( 1261 );
+  private Component getRaum( int raumnr, Fensterseite fensterseite ) {
+    TextField platz1 = createPlatz( raumnr * 10 + 1 );
     platz1.getStyle().set( "border-right", "1px solid #000000" );
     platz1.getStyle().set( "border-bottom", "1px solid #000000" );
-    Label platz2 = createPlatz( 1262 );
+    TextField platz2 = createPlatz( raumnr * 10 + 2 );
     platz2.getStyle().set( "border-bottom", "1px solid #000000" );
-    Label platz3 = createPlatz( 1263 );
+    TextField platz3 = createPlatz( raumnr * 10 + 3 );
     platz3.getStyle().set( "border-right", "1px solid #000000" );
-    Label platz4 = createPlatz( 1264 );
+    TextField platz4 = createPlatz( raumnr * 10 + 4 );
 
     HorizontalLayout reihe1 = createReihe();
     reihe1.add( platz1 );
@@ -62,19 +68,19 @@ public class SitzplanView extends VerticalLayout {
     HorizontalLayout reihe2 = createReihe();
     reihe2.add( platz3 );
     reihe2.add( platz4 );
-    VerticalLayout raum = createRaum();
+    VerticalLayout raum = createRaum( fensterseite );
     raum.add( reihe1 );
     raum.add( reihe2 );
     return raum;
   }
 
-  private VerticalLayout createRaum() {
+  private VerticalLayout createRaum( Fensterseite fensterseite ) {
     VerticalLayout raum = new VerticalLayout();
-    raum.setWidth( "100px" );
+    raum.setWidth( "25%" );
     raum.setMargin( false );
-    raum.setPadding( false );
+    raum.setPadding( true );
     raum.setSpacing( false );
-    raum.getStyle().set( "border-right", "2px solid #000000" );
+    raum.getStyle().set( "border-" + fensterseite.bezeichnung, "2px solid #000000" );
     return raum;
   }
 
@@ -86,12 +92,24 @@ public class SitzplanView extends VerticalLayout {
     return reihe;
   }
 
-  private Label createPlatz( long platzId ) {
-    Label platz = new Label( aktuelleKonfiguration.getKuerzelZuPlatzId( platzId ) );
-    platz.setWidth( "40px" );
-    platz.getStyle().set( "padding", "2px" );
+  private TextField createPlatz( long platzId ) {
+    TextField platz = new TextField();
+    platz.setValue( aktuelleKonfiguration.getKuerzelZuPlatzId( platzId ) );
+    platz.setEnabled( false );
+    platz.setWidth( "20%" );
+    platz.getStyle().set( "padding", "2%" );
     platz.getStyle().set( "text-align", "center" );
     return platz;
+  }
+
+  private enum Fensterseite {
+    LINKS( "left" ), RECHTS( "right" );
+
+    private Fensterseite( String bezeichnung ) {
+      this.bezeichnung = bezeichnung;
+    }
+
+    String bezeichnung;
   }
 
   private static final long serialVersionUID = 1992137646139137487L;
