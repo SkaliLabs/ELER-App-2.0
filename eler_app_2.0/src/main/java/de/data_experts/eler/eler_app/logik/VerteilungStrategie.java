@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
-
 import de.data_experts.eler.eler_app.model.Konfiguration;
 import de.data_experts.eler.eler_app.model.Mitarbeiter;
 import de.data_experts.eler.eler_app.model.Platz;
@@ -18,7 +16,6 @@ import de.data_experts.eler.eler_app.model.Raum;
 /**
  * Erzeugt eine neue Konfiguration durch Verteilung von Mitarbeitern auf Räume.
  */
-@Component
 public class VerteilungStrategie {
 
   // -- Attribute --------------------------------------------------------------

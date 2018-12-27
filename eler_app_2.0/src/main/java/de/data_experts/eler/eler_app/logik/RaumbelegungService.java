@@ -1,11 +1,9 @@
 package de.data_experts.eler.eler_app.logik;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Locale;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.db.MitarbeiterRepository;
@@ -15,6 +13,7 @@ import de.data_experts.eler.eler_app.model.Konfiguration;
 /**
  * Der RaumbelegunsService bietet Dienstleistungen zum Laden, Persistieren und Erzeugen von Konfigurationen an.
  */
+@Component
 public class RaumbelegungService {
 
   // -- Attribute --------------------------------------------------------------
@@ -65,7 +64,8 @@ public class RaumbelegungService {
       }
     }
 
-    setzeGueltigkeitsDaten( result );
+    result.setGueltigVon( LocalDateTime.now() );
+    result.setGueltigBis( LocalDateTime.now().plusMonths( 2 ) );
     return result;
   }
 
@@ -80,16 +80,5 @@ public class RaumbelegungService {
   }
 
   // -- private Methoden ------------------------------------------------------
-
-  private void setzeGueltigkeitsDaten( Konfiguration konfiguration ) {
-    Konfiguration aktuelleKonfiguration = konfigurationenRepository.findAktuelle();
-
-    Calendar gueltigBis = new GregorianCalendar( Locale.GERMANY );
-    gueltigBis.setTime( aktuelleKonfiguration.getGueltigBis() );
-    gueltigBis.add( Calendar.MONTH, 2 );
-
-    konfiguration.setGueltigVon( new Date( aktuelleKonfiguration.getGueltigBis().getTime() ) );
-    konfiguration.setGueltigBis( gueltigBis.getTime() );
-  }
 
 }

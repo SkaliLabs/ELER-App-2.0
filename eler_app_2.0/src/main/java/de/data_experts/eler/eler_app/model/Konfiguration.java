@@ -1,9 +1,9 @@
 package de.data_experts.eler.eler_app.model;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -32,12 +32,8 @@ public class Konfiguration {
   }
 
   public Konfiguration( List<Platzzuordnung> platzzuordnungen ) {
-    this( platzzuordnungen, new Date(), new Date() );
-  }
-
-  public Konfiguration( List<Platzzuordnung> platzzuordnungen, Date gueltigVon, Date gueltigBis ) {
-    this.gueltigVon = gueltigVon;
-    this.gueltigBis = gueltigBis;
+    this.gueltigVon = LocalDateTime.now();
+    this.gueltigBis = LocalDateTime.now().plusMonths( 2 );
     this.platzzuordnungen = platzzuordnungen;
   }
 
@@ -47,27 +43,27 @@ public class Konfiguration {
     return id;
   }
 
-  public Date getGueltigVon() {
+  public LocalDateTime getGueltigVon() {
     return gueltigVon;
   }
 
   public String getGueltigVonAlsString() {
-    return sdf.format( getGueltigVon() );
+    return getGueltigVon().format( formatter );
   }
 
-  public void setGueltigVon( Date gueltigVon ) {
+  public void setGueltigVon( LocalDateTime gueltigVon ) {
     this.gueltigVon = gueltigVon;
   }
 
-  public Date getGueltigBis() {
+  public LocalDateTime getGueltigBis() {
     return gueltigBis;
   }
 
   public String getGueltigBisAlsString() {
-    return sdf.format( getGueltigBis() );
+    return getGueltigBis().format( formatter );
   }
 
-  public void setGueltigBis( Date gueltigBis ) {
+  public void setGueltigBis( LocalDateTime gueltigBis ) {
     this.gueltigBis = gueltigBis;
   }
 
@@ -214,14 +210,13 @@ public class Konfiguration {
   @GeneratedValue
   private long id;
 
-  private Date gueltigVon;
+  private LocalDateTime gueltigVon;
 
-  private Date gueltigBis;
+  private LocalDateTime gueltigBis;
 
   @OneToMany( cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER )
   @JoinColumn( name = "konfiguration" )
   private List<Platzzuordnung> platzzuordnungen;
 
-  private transient SimpleDateFormat sdf = new SimpleDateFormat( "dd.MM.yyyy", Locale.GERMANY );
-
+  private transient DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd. MMMM yyyy", Locale.GERMANY );
 }

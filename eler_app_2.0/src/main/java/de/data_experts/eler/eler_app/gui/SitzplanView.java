@@ -14,8 +14,6 @@
  */
 package de.data_experts.eler.eler_app.gui;
 
-import java.util.List;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -26,23 +24,18 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
-import de.data_experts.eler.eler_app.db.MitarbeiterRepository;
-import de.data_experts.eler.eler_app.db.RaumRepository;
-import de.data_experts.eler.eler_app.logik.VerteilungStrategie;
+import de.data_experts.eler.eler_app.logik.RaumbelegungService;
 import de.data_experts.eler.eler_app.model.Konfiguration;
-import de.data_experts.eler.eler_app.model.Mitarbeiter;
-import de.data_experts.eler.eler_app.model.Raum;
 
 @Route( value = "sitzplan" )
 public class SitzplanView extends VerticalLayout {
 
   private final Konfiguration aktuelleKonfiguration;
 
-  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumRepository raumRepository,
-      MitarbeiterRepository mitarbeiterRepository, VerteilungStrategie strategie ) {
+  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    add( new H3( "Aktuelle Konfiguration gültig von " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis "
+    add( new H3( "Aktuelle Konfiguration gültig vom " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis zum "
         + aktuelleKonfiguration.getGueltigBisAlsString() ) );
 
     HorizontalLayout raumreihe1 = new HorizontalLayout();
@@ -52,12 +45,10 @@ public class SitzplanView extends VerticalLayout {
 
     HorizontalLayout raumreihe2 = new HorizontalLayout();
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
-    List<Raum> raeume = raumRepository.findAll();
-    List<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findAll();
     add( raumreihe2 );
 
     add( new Button( "Würfeln!", e -> {
-      konfigurationRepository.save( strategie.generiereVerteilung( raeume, mitarbeiter ) );
+      konfigurationRepository.save( service.generiereKonfiguration() );
       UI.getCurrent().getPage().reload();
     } ) );
   }
