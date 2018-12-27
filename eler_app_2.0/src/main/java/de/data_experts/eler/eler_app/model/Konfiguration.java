@@ -2,7 +2,6 @@ package de.data_experts.eler.eler_app.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -33,7 +32,7 @@ public class Konfiguration {
   }
 
   public Konfiguration( List<Platzzuordnung> platzzuordnungen ) {
-    this( platzzuordnungen, new Date(),new Date() );
+    this( platzzuordnungen, new Date(), new Date() );
   }
 
   public Konfiguration( List<Platzzuordnung> platzzuordnungen, Date gueltigVon, Date gueltigBis ) {

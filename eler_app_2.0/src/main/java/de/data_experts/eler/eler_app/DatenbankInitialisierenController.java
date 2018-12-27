@@ -15,7 +15,6 @@
 package de.data_experts.eler.eler_app;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,7 +100,6 @@ public class DatenbankInitialisierenController {
     platzRepository.save( new Platz( 1254, "Platz 4", strand ) );
   }
 
-  @SuppressWarnings( "deprecation" )
   private void initialisiereKonfiguration() {
     if ( !konfigurationRepository.findAll().isEmpty() )
       return;
@@ -117,7 +115,7 @@ public class DatenbankInitialisierenController {
     zuordnungen.add( new Platzzuordnung( platz( 1212L ), mitarbeiter( "jk" ) ) );
     zuordnungen.add( new Platzzuordnung( platz( 1213L ), mitarbeiter( "dst" ) ) );
     zuordnungen.add( new Platzzuordnung( platz( 1214L ), mitarbeiter( "skl" ) ) );
-    konfigurationRepository.save( new Konfiguration( zuordnungen ));
+    konfigurationRepository.save( new Konfiguration( zuordnungen ) );
   }
 
   private Mitarbeiter mitarbeiter( String kuerzel ) {
