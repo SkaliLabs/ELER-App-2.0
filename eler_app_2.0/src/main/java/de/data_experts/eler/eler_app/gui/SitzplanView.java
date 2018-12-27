@@ -19,6 +19,7 @@ import java.util.List;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -40,15 +41,21 @@ public class SitzplanView extends VerticalLayout {
   public SitzplanView( KonfigurationRepository konfigurationRepository, RaumRepository raumRepository,
       MitarbeiterRepository mitarbeiterRepository, VerteilungStrategie strategie ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
+
+    add( new H3( "Aktuelle Konfiguration gültig von " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis "
+        + aktuelleKonfiguration.getGueltigBisAlsString() ) );
+
     HorizontalLayout raumreihe1 = new HorizontalLayout();
     raumreihe1.add( getRaum( 125, Fensterseite.LINKS ) );
     raumreihe1.add( getRaum( 121, Fensterseite.RECHTS ) );
+    add( raumreihe1 );
+
     HorizontalLayout raumreihe2 = new HorizontalLayout();
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     List<Raum> raeume = raumRepository.findAll();
     List<Mitarbeiter> mitarbeiter = mitarbeiterRepository.findAll();
-    add( raumreihe1 );
     add( raumreihe2 );
+
     add( new Button( "Würfeln!", e -> {
       konfigurationRepository.save( strategie.generiereVerteilung( raeume, mitarbeiter ) );
       UI.getCurrent().getPage().reload();

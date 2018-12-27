@@ -51,7 +51,7 @@ public class Konfiguration {
     return gueltigVon;
   }
 
-  private String getGueltigVonAlsString() {
+  public String getGueltigVonAlsString() {
     return sdf.format( getGueltigVon() );
   }
 
@@ -63,7 +63,7 @@ public class Konfiguration {
     return gueltigBis;
   }
 
-  private String getGueltigBisAlsString() {
+  public String getGueltigBisAlsString() {
     return sdf.format( getGueltigBis() );
   }
 
