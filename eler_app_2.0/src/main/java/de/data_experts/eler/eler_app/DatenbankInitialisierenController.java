@@ -117,7 +117,7 @@ public class DatenbankInitialisierenController {
     zuordnungen.add( new Platzzuordnung( platz( 1212L ), mitarbeiter( "jk" ) ) );
     zuordnungen.add( new Platzzuordnung( platz( 1213L ), mitarbeiter( "dst" ) ) );
     zuordnungen.add( new Platzzuordnung( platz( 1214L ), mitarbeiter( "skl" ) ) );
-    konfigurationRepository.save( new Konfiguration( zuordnungen, new Date( 118, 8, 1 ), new Date( 118, 10, 1 ) ) );
+    konfigurationRepository.save( new Konfiguration( zuordnungen ));
   }
 
   private Mitarbeiter mitarbeiter( String kuerzel ) {
