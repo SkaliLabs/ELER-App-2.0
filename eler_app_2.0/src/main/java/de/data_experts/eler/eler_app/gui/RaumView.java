@@ -23,7 +23,7 @@ import de.data_experts.eler.eler_app.db.RaumRepository;
 import de.data_experts.eler.eler_app.model.Raum;
 
 @PageTitle( "Räume" )
-@Route( value = "raeume" )
+@Route( value = "raeume", layout = MainView.class )
 public class RaumView extends VerticalLayout {
   private static final long serialVersionUID = -2081451884485555973L;
 

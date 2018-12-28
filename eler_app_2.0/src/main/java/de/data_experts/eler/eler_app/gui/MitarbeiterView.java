@@ -27,7 +27,7 @@ import de.data_experts.eler.eler_app.db.MitarbeiterRepository;
 import de.data_experts.eler.eler_app.model.Mitarbeiter;
 
 @PageTitle( "Mitarbeiter" )
-@Route( value = "mitarbeiter" )
+@Route( value = "mitarbeiter", layout = MainView.class )
 public class MitarbeiterView extends VerticalLayout {
 
   public MitarbeiterView( MitarbeiterRepository repo ) {
