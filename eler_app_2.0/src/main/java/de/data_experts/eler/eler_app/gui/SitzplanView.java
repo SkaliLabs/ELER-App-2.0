@@ -21,12 +21,14 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.logik.RaumbelegungService;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 
+@PageTitle( "Sitzplan" )
 @Route( value = "sitzplan" )
 public class SitzplanView extends VerticalLayout {
 
@@ -35,7 +37,7 @@ public class SitzplanView extends VerticalLayout {
   public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    add( new H3( "Aktuelle Konfiguration gültig vom " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis zum "
+    add( new H3( "Aktuelle Konfiguration gï¿½ltig vom " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis zum "
         + aktuelleKonfiguration.getGueltigBisAlsString() ) );
 
     HorizontalLayout raumreihe1 = new HorizontalLayout();
@@ -47,7 +49,7 @@ public class SitzplanView extends VerticalLayout {
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     add( raumreihe2 );
 
-    add( new Button( "Würfeln!", e -> {
+    add( new Button( "Wï¿½rfeln!", e -> {
       konfigurationRepository.save( service.generiereKonfiguration() );
       UI.getCurrent().getPage().reload();
     } ) );

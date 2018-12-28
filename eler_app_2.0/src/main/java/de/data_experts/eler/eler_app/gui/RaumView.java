@@ -16,11 +16,13 @@ package de.data_experts.eler.eler_app.gui;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.RaumRepository;
 import de.data_experts.eler.eler_app.model.Raum;
 
+@PageTitle( "Räume" )
 @Route( value = "raeume" )
 public class RaumView extends VerticalLayout {
   private static final long serialVersionUID = -2081451884485555973L;

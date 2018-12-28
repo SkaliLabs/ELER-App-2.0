@@ -20,11 +20,13 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.MitarbeiterRepository;
 import de.data_experts.eler.eler_app.model.Mitarbeiter;
 
+@PageTitle( "Mitarbeiter" )
 @Route( value = "mitarbeiter" )
 public class MitarbeiterView extends VerticalLayout {
 
