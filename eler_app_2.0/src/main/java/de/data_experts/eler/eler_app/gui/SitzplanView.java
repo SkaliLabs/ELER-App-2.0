@@ -29,7 +29,7 @@ import de.data_experts.eler.eler_app.logik.RaumbelegungService;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 
 @PageTitle( "Sitzplan" )
-@Route( value = "sitzplan", layout = MainView.class )
+@Route( value = "", layout = MainView.class )
 public class SitzplanView extends VerticalLayout {
 
   private final Konfiguration aktuelleKonfiguration;

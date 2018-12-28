@@ -2,11 +2,9 @@ package de.data_experts.eler.eler_app.gui;
 
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
-import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLayout;
 import com.vaadin.flow.router.RouterLink;
 
-@Route( value = "" )
 public class MainView extends Div implements RouterLayout {
 
   public MainView() {
