@@ -1,6 +1,7 @@
 package de.data_experts.eler.eler_app.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -101,11 +102,11 @@ public class Platzzuordnung implements Comparable<Platzzuordnung> {
   @GeneratedValue
   private long id;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn( name = "platz" )
   private Platz platz;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn( name = "mitarbeiter" )
   private Mitarbeiter mitarbeiter;
 

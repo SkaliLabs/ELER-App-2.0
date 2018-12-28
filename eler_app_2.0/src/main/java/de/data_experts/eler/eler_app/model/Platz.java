@@ -85,7 +85,7 @@ public class Platz {
 
   private String bezeichnung;
 
-  @ManyToOne( fetch = FetchType.LAZY )
+  @ManyToOne( fetch = FetchType.EAGER )
   @JoinColumn( name = "raum" )
   private Raum raum;
 
