@@ -37,7 +37,7 @@ public class SitzplanView extends VerticalLayout {
   public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    add( new H3( "Aktuelle Konfiguration gÃ¼ltig vom " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis zum "
+    add( new H3( "Aktuelle Konfiguration gültig vom " + aktuelleKonfiguration.getGueltigVonAlsString() + " bis zum "
         + aktuelleKonfiguration.getGueltigBisAlsString() ) );
 
     HorizontalLayout raumreihe1 = new HorizontalLayout();
@@ -49,7 +49,7 @@ public class SitzplanView extends VerticalLayout {
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     add( raumreihe2 );
 
-    add( new Button( "WÃ¼rfeln!", e -> {
+    add( new Button( "Würfeln!", e -> {
       konfigurationRepository.save( service.generiereKonfiguration() );
       UI.getCurrent().getPage().reload();
     } ) );
