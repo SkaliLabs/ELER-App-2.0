@@ -14,6 +14,9 @@
  */
 package de.data_experts.eler.eler_app.gui;
 
+import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
+import static de.data_experts.eler.eler_app.gui.Styles.HELL;
+
 import java.util.List;
 
 import com.vaadin.flow.component.button.Button;
@@ -47,12 +50,12 @@ public class MitarbeiterView extends VerticalLayout {
         .setHeader( "Status" );
     grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );
     grid.setHeightByRows( true );
-    grid.getStyle().set( "color", "#197670" );
+    grid.getStyle().set( "color", DUNKEL );
     add( grid );
 
     Button button = new Button( "Speichern!", e -> repo.saveAll( alleMitarbeiter ) );
-    button.getStyle().set( "color", "#197670" );
-    button.getStyle().set( "background-color", "#E6FFFF" );
+    button.getStyle().set( "color", DUNKEL );
+    button.getStyle().set( "background-color", HELL );
     add( button );
   }
 
