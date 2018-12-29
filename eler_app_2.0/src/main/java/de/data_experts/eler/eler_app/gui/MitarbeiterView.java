@@ -47,8 +47,13 @@ public class MitarbeiterView extends VerticalLayout {
         .setHeader( "Status" );
     grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );
     grid.setHeightByRows( true );
+    grid.getStyle().set( "color", "#197670" );
     add( grid );
-    add( new Button( "Speichern!", e -> repo.saveAll( alleMitarbeiter ) ) );
+
+    Button button = new Button( "Speichern!", e -> repo.saveAll( alleMitarbeiter ) );
+    button.getStyle().set( "color", "#197670" );
+    button.getStyle().set( "background-color", "#E6FFFF" );
+    add( button );
   }
 
   private static final long serialVersionUID = -2081451884485555973L;
