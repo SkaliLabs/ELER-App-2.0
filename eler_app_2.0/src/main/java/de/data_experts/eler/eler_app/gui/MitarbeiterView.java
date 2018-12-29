@@ -51,6 +51,7 @@ public class MitarbeiterView extends VerticalLayout {
     grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );
     grid.setHeightByRows( true );
     grid.getStyle().set( "color", DUNKEL );
+    grid.setWidth( "75%" );
     add( grid );
 
     Button button = new Button( "Speichern!", e -> repo.saveAll( alleMitarbeiter ) );

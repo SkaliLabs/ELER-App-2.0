@@ -1,7 +1,7 @@
 package de.data_experts.eler.eler_app.gui;
 
 public class Styles {
-  public static String HELL = "#FFC077";
+  public static String HELL = "#FFE1BD";
 
   public static String MITTEL = "#FF8330";
 

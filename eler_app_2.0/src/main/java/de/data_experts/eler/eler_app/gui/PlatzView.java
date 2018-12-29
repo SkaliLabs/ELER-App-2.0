@@ -56,6 +56,7 @@ public class PlatzView extends VerticalLayout {
     grid.addColumn( Platz::getBezeichnung ).setHeader( "Bezeichnung" );
     grid.getStyle().set( "color", DUNKEL );
     grid.setHeightByRows( true );
+    grid.setWidth( "75%" );
     add( grid );
     return plaetze;
   }
