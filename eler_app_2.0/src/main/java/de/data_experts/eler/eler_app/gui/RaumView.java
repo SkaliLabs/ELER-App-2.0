@@ -14,6 +14,9 @@
  */
 package de.data_experts.eler.eler_app.gui;
 
+import java.util.List;
+
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -25,11 +28,19 @@ import de.data_experts.eler.eler_app.model.Raum;
 @PageTitle( "Räume" )
 @Route( value = "raeume", layout = MainView.class )
 public class RaumView extends VerticalLayout {
-  private static final long serialVersionUID = -2081451884485555973L;
 
   public RaumView( RaumRepository repo ) {
     Grid<Raum> grid = new Grid<>( Raum.class );
-    grid.setItems( repo.findAll() );
+    List<Raum> alleRaeume = repo.findAll();
+    grid.setItems( alleRaeume );
+    grid.getStyle().set( "color", "#197670" );
     add( grid );
+
+    Button button = new Button( "Speichern!", e -> repo.saveAll( alleRaeume ) );
+    button.getStyle().set( "color", "#197670" );
+    button.getStyle().set( "background-color", "#E6FFFF" );
+    add( button );
   }
+
+  private static final long serialVersionUID = -2081451884485555973L;
 }
