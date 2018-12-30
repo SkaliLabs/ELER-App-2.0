@@ -25,9 +25,9 @@ public class PlatzView extends VerticalLayout {
 
   public PlatzView( PlatzRepository platzRepo, RaumRepository raumRepo ) {
     List<Platz> allePlaetze = new ArrayList<>();
-    allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, "1.21" ) );
-    allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, "1.25" ) );
-    allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, "1.26" ) );
+    allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 121 ) );
+    allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 125 ) );
+    allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 126 ) );
 
     Button button = new Button( "Speichern!", e -> platzRepo.saveAll( allePlaetze ) );
     button.getStyle().set( "color", DUNKEL );
@@ -35,7 +35,7 @@ public class PlatzView extends VerticalLayout {
     add( button );
   }
 
-  private List<Platz> addPlaetzeGrid( PlatzRepository platzRepo, RaumRepository raumRepo, String raumNr ) {
+  private List<Platz> addPlaetzeGrid( PlatzRepository platzRepo, RaumRepository raumRepo, Integer raumNr ) {
     Raum raum = raumRepo.findById( raumNr ).get();
     H3 raumName = new H3( raum.getBezeichnung() );
     raumName.getStyle().set( "color", DUNKEL );

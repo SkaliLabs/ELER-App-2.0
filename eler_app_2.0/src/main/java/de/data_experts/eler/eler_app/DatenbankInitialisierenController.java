@@ -73,28 +73,28 @@ public class DatenbankInitialisierenController {
   private void initialisiereRaeume() {
     if ( !raumRepository.findAll().isEmpty() )
       return;
-    raumRepository.save( new Raum( "1.26", "Raum 1.26 ELER-Wald" ) );
-    raumRepository.save( new Raum( "1.21", "Raum 1.21 ELER-Wiese" ) );
-    raumRepository.save( new Raum( "1.25", "Raum 1.25 ELER-Strand" ) );
+    raumRepository.save( new Raum( 126, "Raum 1.26 ELER-Wald" ) );
+    raumRepository.save( new Raum( 121, "Raum 1.21 ELER-Wiese" ) );
+    raumRepository.save( new Raum( 125, "Raum 1.25 ELER-Strand" ) );
   }
 
   private void initialisierePlaetze() {
     if ( !platzRepository.findAll().isEmpty() )
       return;
 
-    Raum wald = raumRepository.findById( "1.26" ).get();
+    Raum wald = raumRepository.findById( 126 ).get();
     platzRepository.save( new Platz( 1261, "Platz 1", wald ) );
     platzRepository.save( new Platz( 1262, "Platz 2", wald ) );
     platzRepository.save( new Platz( 1263, "Platz 3", wald ) );
     platzRepository.save( new Platz( 1264, "Platz 4", wald ) );
 
-    Raum wiese = raumRepository.findById( "1.21" ).get();
+    Raum wiese = raumRepository.findById( 121 ).get();
     platzRepository.save( new Platz( 1211, "Platz 1", wiese ) );
     platzRepository.save( new Platz( 1212, "Platz 2", wiese ) );
     platzRepository.save( new Platz( 1213, "Platz 3", wiese ) );
     platzRepository.save( new Platz( 1214, "Platz 4", wiese ) );
 
-    Raum strand = raumRepository.findById( "1.25" ).get();
+    Raum strand = raumRepository.findById( 125 ).get();
     platzRepository.save( new Platz( 1251, "Platz 1", strand ) );
     platzRepository.save( new Platz( 1252, "Platz 2", strand ) );
     platzRepository.save( new Platz( 1253, "Platz 3", strand ) );

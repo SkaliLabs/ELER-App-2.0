@@ -52,13 +52,13 @@ public class SitzplanView extends VerticalLayout {
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     add( raumreihe2 );
 
-    Button button = new Button( "Würfeln!", e -> {
+    Button wuerfelnButton = new Button( "Würfeln!", e -> {
       konfigurationRepository.save( service.generiereKonfiguration() );
       UI.getCurrent().getPage().reload();
     } );
-    button.getStyle().set( "color", DUNKEL );
-    button.getStyle().set( "background-color", HELL );
-    add( button );
+    wuerfelnButton.getStyle().set( "color", DUNKEL );
+    wuerfelnButton.getStyle().set( "background-color", HELL );
+    add( wuerfelnButton );
   }
 
   private Component getRaum( int raumnr, Fensterseite fensterseite ) {
@@ -104,7 +104,7 @@ public class SitzplanView extends VerticalLayout {
   private TextField createPlatz( long platzId ) {
     TextField platz = new TextField();
     platz.setValue( aktuelleKonfiguration.getKuerzelZuPlatzId( platzId ) );
-    platz.setEnabled( false );
+    platz.setReadOnly( true );
     platz.setWidth( "20%" );
     platz.getStyle().set( "padding", "2%" );
     platz.getStyle().set( "text-align", "center" );

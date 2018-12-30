@@ -23,14 +23,14 @@ public class Raum {
   protected Raum() {
   }
 
-  public Raum( String raumNr, String bezeichnung ) {
+  public Raum( Integer raumNr, String bezeichnung ) {
     this.raumNr = raumNr;
     this.bezeichnung = bezeichnung;
   }
 
   // -- Getter/Setter ----------------------------------------------------------
 
-  public String getRaumNr() {
+  public Integer getRaumNr() {
     return raumNr;
   }
 
@@ -65,7 +65,7 @@ public class Raum {
   // -- Attribute --------------------------------------------------------------
 
   @Id
-  private String raumNr;
+  private Integer raumNr;
 
   private String bezeichnung;
 

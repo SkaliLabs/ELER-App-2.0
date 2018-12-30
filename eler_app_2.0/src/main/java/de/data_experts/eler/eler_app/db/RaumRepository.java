@@ -18,7 +18,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import de.data_experts.eler.eler_app.model.Raum;
 
-public interface RaumRepository extends JpaRepository<Raum, String> {
+public interface RaumRepository extends JpaRepository<Raum, Integer> {
 
-  // Raum findByRaumNr( String raumNr );
 }
