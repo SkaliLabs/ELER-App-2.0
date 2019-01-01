@@ -17,7 +17,9 @@ package de.data_experts.eler.eler_app.gui;
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
 
+import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -37,7 +39,8 @@ import de.data_experts.eler.eler_app.model.Konfiguration;
 @Route( value = "", layout = MainView.class )
 public class SitzplanView extends VerticalLayout {
 
-  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service, UmzugZuordnungHelper umzugZuordnungHelper ) {
+  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service,
+      UmzugZuordnungHelper umzugZuordnungHelper ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
     H3 ueberschrift = new H3( "Aktuelle Konfiguration gültig vom " + aktuelleKonfiguration.getGueltigVonAlsString()
@@ -54,22 +57,28 @@ public class SitzplanView extends VerticalLayout {
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     add( raumreihe2 );
 
-    Button wuerfelnButton = new Button( "Würfeln!", e -> {
+    Button wuerfelnButton = createButton( "Würfeln!", e -> {
       konfigurationRepository.save( service.generiereKonfiguration( aktuelleKonfiguration ) );
       UI.getCurrent().getPage().reload();
     } );
-    wuerfelnButton.getStyle().set( "color", DUNKEL );
-    wuerfelnButton.getStyle().set( "background-color", HELL );
     add( wuerfelnButton );
 
-    Button umzugButton = new Button( "Umzugsplan anzeigen!", e -> {
-      Dialog dialog = new Dialog();
-      dialog.add( new UmzugView( umzugZuordnungHelper.erstelleUmzugZuordnungen( aktuelleKonfiguration ) ) );
-      dialog.open();
-    } );
-    umzugButton.getStyle().set( "color", DUNKEL );
-    umzugButton.getStyle().set( "background-color", HELL );
+    Button umzugButton = createButton( "Umzugsplan anzeigen!", e -> umzugsDialogOeffnen( umzugZuordnungHelper ) );
     add( umzugButton );
+  }
+
+  private Button createButton( String titel, ComponentEventListener<ClickEvent<Button>> clickListener ) {
+    Button wuerfelnButton = new Button( titel, clickListener );
+    wuerfelnButton.getStyle().set( "color", DUNKEL );
+    wuerfelnButton.getStyle().set( "background-color", HELL );
+    return wuerfelnButton;
+  }
+
+  private void umzugsDialogOeffnen( UmzugZuordnungHelper umzugZuordnungHelper ) {
+    Dialog dialog = new Dialog();
+    dialog.add( new UmzugView( umzugZuordnungHelper.erstelleUmzugZuordnungen( aktuelleKonfiguration ) ) );
+    dialog.add( createButton( "Schließen", e -> dialog.close() ) );
+    dialog.open();
   }
 
   private Component getRaum( int raumnr, Fensterseite fensterseite ) {
