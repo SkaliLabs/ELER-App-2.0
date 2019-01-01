@@ -16,6 +16,10 @@ package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
+
+import java.util.List;
+import java.util.Map;
+
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -29,13 +33,15 @@ import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.logik.RaumbelegungService;
+import de.data_experts.eler.eler_app.logik.UmzugZuordnung;
+import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 
 @PageTitle( "Sitzplan" )
 @Route( value = "", layout = MainView.class )
 public class SitzplanView extends VerticalLayout {
 
-  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service ) {
+  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service, UmzugZuordnungHelper umzugZuordnungHelper ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
     H3 ueberschrift = new H3( "Aktuelle Konfiguration gültig vom " + aktuelleKonfiguration.getGueltigVonAlsString()
@@ -62,7 +68,7 @@ public class SitzplanView extends VerticalLayout {
 
     Button umzugButton = new Button( "Umzugsplan anzeigen!", e -> {
       Dialog dialog = new Dialog();
-      dialog.add( new UmzugView( aktuelleKonfiguration ) );
+      dialog.add( new UmzugView( umzugZuordnungHelper.erstelleUmzugZuordnungen( aktuelleKonfiguration ) ) );
       dialog.open();
     } );
     umzugButton.getStyle().set( "color", DUNKEL );

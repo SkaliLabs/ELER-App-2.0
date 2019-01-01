@@ -8,13 +8,10 @@ import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import de.data_experts.eler.eler_app.logik.UmzugZuordnung;
-import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
-import de.data_experts.eler.eler_app.model.Konfiguration;
 
 public class UmzugView extends VerticalLayout {
 
-  public UmzugView( Konfiguration konfiguration ) {
-    Map<Integer, List<UmzugZuordnung>> map = new UmzugZuordnungHelper().erstelleUmzugZuordnungen( konfiguration );
+  public UmzugView( Map<Integer, List<UmzugZuordnung>> map ) {
     add( new H2( "Umzug-Reihenfolge:" ) );
     for ( Integer i : map.keySet() ) {
       List<UmzugZuordnung> umzugZuordnungen = map.get( i );
