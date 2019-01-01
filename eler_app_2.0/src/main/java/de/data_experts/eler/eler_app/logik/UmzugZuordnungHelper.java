@@ -1,6 +1,7 @@
 package de.data_experts.eler.eler_app.logik;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,9 @@ public class UmzugZuordnungHelper {
   // -- public Methoden --------------------------------------------------------
 
   public Map<Integer, List<UmzugZuordnung>> erstelleUmzugZuordnungen( Konfiguration konfigurationNeu ) {
+    if ( konfigurationNeu.getVorgaengerKonfId() == null )
+      return Collections.emptyMap();
+
     List<UmzugZuordnung> umzugZuordnungen = new ArrayList<>();
     Konfiguration konfigurationAlt = konfigurationenRepository.findById( konfigurationNeu.getVorgaengerKonfId() ).get();
 

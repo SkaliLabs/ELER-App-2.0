@@ -17,6 +17,9 @@ package de.data_experts.eler.eler_app.gui;
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
 
+import java.util.List;
+import java.util.Map;
+
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -32,6 +35,7 @@ import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.logik.RaumbelegungService;
+import de.data_experts.eler.eler_app.logik.UmzugZuordnung;
 import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 
@@ -43,10 +47,10 @@ public class SitzplanView extends VerticalLayout {
       UmzugZuordnungHelper umzugZuordnungHelper ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    H3 ueberschrift = new H3( aktuelleKonfiguration.getGueltigVonAlsString()
-        + " - " + aktuelleKonfiguration.getGueltigBisAlsString() );
-    ueberschrift.getStyle().set( "color", DUNKEL );
-    add( ueberschrift );
+    H3 titel = new H3( createTitel( aktuelleKonfiguration.getGueltigVonAlsString()
+        + " - " + aktuelleKonfiguration.getGueltigBisAlsString() ) );
+    titel.getStyle().set( "color", DUNKEL );
+    add( titel );
 
     HorizontalLayout raumreihe1 = new HorizontalLayout();
     raumreihe1.add( getRaum( 125, Fensterseite.LINKS ) );
@@ -67,6 +71,14 @@ public class SitzplanView extends VerticalLayout {
     add( umzugButton );
   }
 
+  private H3 createTitel( String text ) {
+    H3 titel = new H3( text );
+    titel.getStyle().set( "color", DUNKEL );
+    titel.getStyle().set( "padding-top", "0px" );
+    titel.getStyle().set( "margin-top", "0px" );
+    return titel;
+  }
+
   private Button createButton( String titel, ComponentEventListener<ClickEvent<Button>> clickListener ) {
     Button wuerfelnButton = new Button( titel, clickListener );
     wuerfelnButton.getStyle().set( "color", DUNKEL );
@@ -76,7 +88,14 @@ public class SitzplanView extends VerticalLayout {
 
   private void umzugsDialogOeffnen( UmzugZuordnungHelper umzugZuordnungHelper ) {
     Dialog dialog = new Dialog();
-    dialog.add( new UmzugView( umzugZuordnungHelper.erstelleUmzugZuordnungen( aktuelleKonfiguration ) ) );
+    Map<Integer, List<UmzugZuordnung>> umzugZuordnungen = umzugZuordnungHelper
+        .erstelleUmzugZuordnungen( aktuelleKonfiguration );
+    if ( umzugZuordnungen.isEmpty() )
+      dialog.add( createTitel( "Es gibt keine Umzugs-Reihenfolge." ) );
+    else {
+      dialog.add( createTitel( "Umzug-Reihenfolge:" ) );
+      dialog.add( new UmzugView( umzugZuordnungen ) );
+    }
     dialog.add( createButton( "Schließen", e -> dialog.close() ) );
     dialog.open();
   }
