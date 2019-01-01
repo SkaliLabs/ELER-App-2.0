@@ -17,9 +17,6 @@ package de.data_experts.eler.eler_app.gui;
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
 
-import java.util.List;
-import java.util.Map;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -33,7 +30,6 @@ import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.logik.RaumbelegungService;
-import de.data_experts.eler.eler_app.logik.UmzugZuordnung;
 import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 

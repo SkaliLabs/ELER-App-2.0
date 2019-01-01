@@ -90,33 +90,6 @@ public class UmzugStrategie {
     return null;
   }
 
-  /**
-   * Wandelt die Informationen in einen verständlichen String um
-   */
-  private String erstelleAusgabe( Map<Integer, List<UmzugZuordnung>> map ) {
-    StringBuffer buffer = new StringBuffer();
-    buffer.append( "Umzug-Reihenfolge:" );
-
-    for ( Integer i : map.keySet() ) {
-      List<UmzugZuordnung> umzugZuordnungen = map.get( i );
-      for ( UmzugZuordnung u : umzugZuordnungen ) {
-        if ( umzugZuordnungen.size() > 1 ) {
-          if ( umzugZuordnungen.get( 0 ).equals( u ) ) {
-            buffer.append( "\n\n" + u.getMitarbeiterKuerzel() + " --> Flur" );
-          }
-          else
-            buffer.append( "\n" + u.getMitarbeiterKuerzel() );
-        }
-        else
-          buffer.append( "\n" + u.getMitarbeiterKuerzel() );
-      }
-      if ( umzugZuordnungen.size() > 1 ) {
-        buffer.append( "\n" + umzugZuordnungen.get( 0 ).getMitarbeiterKuerzel() );
-      }
-    }
-    return buffer.toString();
-  }
-
   // -- Getter/Setter ----------------------------------------------------------
 
   // -- Attribute --------------------------------------------------------------
