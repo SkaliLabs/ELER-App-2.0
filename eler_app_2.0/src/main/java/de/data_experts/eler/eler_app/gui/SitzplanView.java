@@ -43,8 +43,8 @@ public class SitzplanView extends VerticalLayout {
       UmzugZuordnungHelper umzugZuordnungHelper ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    H3 ueberschrift = new H3( "Aktuelle Konfiguration gültig vom " + aktuelleKonfiguration.getGueltigVonAlsString()
-        + " bis zum " + aktuelleKonfiguration.getGueltigBisAlsString() );
+    H3 ueberschrift = new H3( aktuelleKonfiguration.getGueltigVonAlsString()
+        + " - " + aktuelleKonfiguration.getGueltigBisAlsString() );
     ueberschrift.getStyle().set( "color", DUNKEL );
     add( ueberschrift );
 
@@ -57,7 +57,7 @@ public class SitzplanView extends VerticalLayout {
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     add( raumreihe2 );
 
-    Button wuerfelnButton = createButton( "Würfeln!", e -> {
+    Button wuerfelnButton = createButton( "Shuffle!", e -> {
       konfigurationRepository.save( service.generiereKonfiguration( aktuelleKonfiguration ) );
       UI.getCurrent().getPage().reload();
     } );
