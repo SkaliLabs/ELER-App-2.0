@@ -1,7 +1,5 @@
 package de.data_experts.eler.eler_app.logik;
 
-import java.time.LocalDateTime;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -64,8 +62,6 @@ public class RaumbelegungService {
       }
     }
 
-    result.setGueltigVon( LocalDateTime.now() );
-    result.setGueltigBis( LocalDateTime.now().plusMonths( 2 ) );
     return result;
   }
 

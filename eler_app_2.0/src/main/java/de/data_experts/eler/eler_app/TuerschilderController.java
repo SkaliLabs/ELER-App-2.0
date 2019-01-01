@@ -14,31 +14,26 @@
  */
 package de.data_experts.eler.eler_app;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.model.Konfiguration;
-import de.data_experts.eler.eler_app.model.Platzzuordnung;
 
 @Controller
-public class SitzplanController {
+public class TuerschilderController {
 
   @Autowired
   KonfigurationRepository konfigurationRepository;
 
-  @GetMapping( "/parameter" )
+  @GetMapping( "/tuerschilder" )
+  @ResponseBody
   public String home( Model model ) {
     Konfiguration konfiguration = konfigurationRepository.findAktuelle();
-    List<Platzzuordnung> platzzuordnungen = konfiguration.getPlatzzuordnungen();
-    platzzuordnungen.forEach(
-        zuordnung -> model.addAttribute( "platz" + zuordnung.getPlatz().getId(),
-            zuordnung.getMitarbeiter().getKuerzel() ) );
-    return "parameter";
+    return konfiguration.getTuerschilder();
   }
 
 }

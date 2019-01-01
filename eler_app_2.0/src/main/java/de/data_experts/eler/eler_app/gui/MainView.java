@@ -4,6 +4,7 @@ import static de.data_experts.eler.eler_app.gui.Styles.HELL;
 import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -24,26 +25,36 @@ public class MainView extends Div implements RouterLayout {
     add( ueberschrift );
 
     HorizontalLayout navigation = new HorizontalLayout();
-    RouterLink sitzplanLink = createLink( "Sitzplan", SitzplanView.class );
+    RouterLink sitzplanLink = createRouterLink( "Sitzplan", SitzplanView.class );
     navigation.add( sitzplanLink );
-    RouterLink mitarbeiterLink = createLink( "Mitarbeiter", MitarbeiterView.class );
+    RouterLink mitarbeiterLink = createRouterLink( "Mitarbeiter", MitarbeiterView.class );
     navigation.add( mitarbeiterLink );
-    RouterLink plaetzeLink = createLink( "Plätze", PlatzView.class );
+    RouterLink plaetzeLink = createRouterLink( "Plätze", PlatzView.class );
     navigation.add( plaetzeLink );
+    Anchor tuerschilderLink = createAnchor();
+    tuerschilderLink.setTarget( "_blank" );
+    navigation.add( tuerschilderLink );
     navigation.getStyle().set( "background-color", MITTEL );
     navigation.getStyle().set( "text-align", "center" );
     add( navigation );
-    // getStyle().set( "background-color", HELL );
   }
 
-  private RouterLink createLink( String label, Class<? extends Component> klazz ) {
-    RouterLink sitzplanLink = new RouterLink( label, klazz );
-    // sitzplanLink.getStyle().set( "width", "20%" );
-    sitzplanLink.getStyle().set( "color", HELL );
-    sitzplanLink.getStyle().set( "text-align", "center" );
-    sitzplanLink.getStyle().set( "margin", "1%" );
-    sitzplanLink.getStyle().set( "padding-left", "2%" );
-    return sitzplanLink;
+  private Anchor createAnchor() {
+    Anchor link = new Anchor( "/tuerschilder", "Türschilder" );
+    link.getStyle().set( "color", HELL );
+    link.getStyle().set( "text-align", "center" );
+    link.getStyle().set( "margin", "1%" );
+    link.getStyle().set( "padding-left", "2%" );
+    return link;
+  }
+
+  private RouterLink createRouterLink( String label, Class<? extends Component> klazz ) {
+    RouterLink link = new RouterLink( label, klazz );
+    link.getStyle().set( "color", HELL );
+    link.getStyle().set( "text-align", "center" );
+    link.getStyle().set( "margin", "1%" );
+    link.getStyle().set( "padding-left", "2%" );
+    return link;
   }
 
   private static final long serialVersionUID = 7526207307181015512L;

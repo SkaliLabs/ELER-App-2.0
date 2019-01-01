@@ -35,7 +35,7 @@ public class Konfiguration {
 
   public Konfiguration( List<Platzzuordnung> platzzuordnungen ) {
     this.gueltigVon = LocalDateTime.now();
-    this.gueltigBis = LocalDateTime.now().plusMonths( 2 );
+    this.gueltigBis = LocalDateTime.now().plusMonths( 2 ).minusDays( 1 );
     this.platzzuordnungen = platzzuordnungen;
     this.tuerschilder = erstelleTuerschilder();
   }
@@ -164,9 +164,8 @@ public class Konfiguration {
   private transient DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd. MMMM yyyy", Locale.GERMANY );
 
   private transient String vorlage = "<html><head><meta charset=\"utf-8\"/></head><body>\r\n" +
-      "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; background-position:center\" rules=none\r\n"
-      +
-      "background=\"///m:/USER.ALL/ELER/Wald.png\">\r\n" +
+      "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; background-position:center\""
+      + " rules=none\r\n background=\"raumbilder/Wald.png\">\r\n" +
       "<tr style=\"height:3cm\"><td colspan=2 align=center style=\"font-size:80\"><b><u>1.26</u></b></td></tr>\r\n" +
       "<tr style=\"height:1cm\"><td colspan=2 align=center style=\"font-size:45\"><b>ELER-Wald</b></td></tr>\r\n" +
       "<tr style=\"height:1cm\"><td colspan=2></td></tr>\r\n" +
@@ -175,11 +174,10 @@ public class Konfiguration {
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1263--></td></tr>\r\n" +
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1264--></td></tr>\r\n" +
       "<tr style=\"height:1.2cm\"><td colspan=2></td></tr>\r\n" +
-      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\" style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table>\r\n"
-      +
-      "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; page-break-before:always; background-position:center\" rules=none\r\n"
-      +
-      "background=\"///m:/USER.ALL/ELER/Wiese.png\">\r\n" +
+      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\""
+      + "style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table>\r\n" +
+      "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; page-break-before:always; background-position:center\""
+      + " rules=none\r\n background=\"raumbilder/Wiese.png\">\r\n" +
       "<tr style=\"height:3cm\"><td colspan=2 align=center style=\"font-size:80\"><b><u>1.21</u></b></td></tr>\r\n" +
       "<tr style=\"height:1cm\"><td colspan=2 align=center style=\"font-size:45\"><b>ELER-Wiese</b></td></tr>\r\n" +
       "<tr style=\"height:1cm\"><td colspan=2></td></tr>\r\n" +
@@ -188,11 +186,10 @@ public class Konfiguration {
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1213--></td></tr>\r\n" +
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1214--></td></tr>\r\n" +
       "<tr style=\"height:1.2cm\"><td colspan=2></td></tr>\r\n" +
-      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\" style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table>\r\n"
-      +
-      "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; page-break-before:always; background-position:center\" rules=none\r\n"
-      +
-      "background=\"///m:/USER.ALL/ELER/Strand.png\">\r\n" +
+      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\" "
+      + "style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table>\r\n" +
+      "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; page-break-before:always; background-position:center\""
+      + "rules=none\r\n background=\"raumbilder/Strand.png\">\r\n" +
       "<tr style=\"height:3cm\"><td colspan=2 align=center style=\"font-size:80\"><b><u>1.25</u></b></td></tr>\r\n" +
       "<tr style=\"height:1cm\"><td colspan=2 align=center style=\"font-size:45\"><b>ELER-Strand</b></td></tr>\r\n" +
       "<tr style=\"height:1cm\"><td colspan=2></td></tr>\r\n" +
