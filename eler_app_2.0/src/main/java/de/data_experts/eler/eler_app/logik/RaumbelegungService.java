@@ -14,25 +14,10 @@ import de.data_experts.eler.eler_app.model.Konfiguration;
 @Component
 public class RaumbelegungService {
 
-  // -- Attribute --------------------------------------------------------------
-
-  @Autowired
-  KonfigurationRepository konfigurationenRepository;
-
-  @Autowired
-  MitarbeiterRepository mitarbeiterRepository;
-
-  @Autowired
-  RaumRepository raumRepository;
-
-  private final int ANZAHL_GENERIERUNGSLAEUFE = 12;
-
   // -- Konstruktoren ----------------------------------------------------------
 
   public RaumbelegungService() {
   }
-
-  // -- Getter/Setter ----------------------------------------------------------
 
   // -- public Methoden --------------------------------------------------------
 
@@ -71,5 +56,20 @@ public class RaumbelegungService {
   }
 
   // -- private Methoden ------------------------------------------------------
+
+  // -- Getter/Setter ----------------------------------------------------------
+
+  // -- Attribute --------------------------------------------------------------
+
+  @Autowired
+  KonfigurationRepository konfigurationenRepository;
+
+  @Autowired
+  MitarbeiterRepository mitarbeiterRepository;
+
+  @Autowired
+  RaumRepository raumRepository;
+
+  private final int ANZAHL_GENERIERUNGSLAEUFE = 12;
 
 }

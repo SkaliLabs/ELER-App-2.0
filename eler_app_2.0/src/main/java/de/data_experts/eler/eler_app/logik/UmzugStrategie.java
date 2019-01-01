@@ -10,11 +10,7 @@ import java.util.Map;
  */
 public class UmzugStrategie {
 
-  // -- Attribute --------------------------------------------------------------
-
   // -- Konstruktoren ----------------------------------------------------------
-
-  // -- Getter/Setter ----------------------------------------------------------
 
   // -- public Methoden --------------------------------------------------------
 
@@ -32,7 +28,7 @@ public class UmzugStrategie {
 
   // -- private Methoden -------------------------------------------------------
 
-  private static List<UmzugZuordnung> findeZyklus( List<UmzugZuordnung> umzugZuordnungen ) {
+  private List<UmzugZuordnung> findeZyklus( List<UmzugZuordnung> umzugZuordnungen ) {
     List<UmzugZuordnung> zuordnungen = new ArrayList<>();
     boolean abgeschlossen = false;
     while ( !abgeschlossen ) {
@@ -74,24 +70,30 @@ public class UmzugStrategie {
     return zuordnungen;
   }
 
-  // Holt Zuordnung, die den gegebenen neuen Platz als alten Platz besitzt
-  private static UmzugZuordnung getZuordnungMitAltemPlatz( List<UmzugZuordnung> umzugZuordnungen, long platznummer ) {
+  /**
+   * Holt Zuordnung, die den gegebenen neuen Platz als alten Platz besitzt
+   */
+  private UmzugZuordnung getZuordnungMitAltemPlatz( List<UmzugZuordnung> umzugZuordnungen, long platznummer ) {
     for ( UmzugZuordnung z : umzugZuordnungen )
       if ( z.getAlterPlatzId() == platznummer )
         return z;
     return null;
   }
 
-  // Holt Zuordnung die den gegebenen Alten Platz als Neuen platz besitzt
-  private static UmzugZuordnung getZuordnungMitNeuemPlatz( List<UmzugZuordnung> umzugZuordnungen, long platznummer ) {
+  /**
+   * Holt Zuordnung die den gegebenen Alten Platz als Neuen platz besitzt
+   */
+  private UmzugZuordnung getZuordnungMitNeuemPlatz( List<UmzugZuordnung> umzugZuordnungen, long platznummer ) {
     for ( UmzugZuordnung z : umzugZuordnungen )
       if ( z.getNeuerPlatzId() == platznummer )
         return z;
     return null;
   }
 
-  // Wandelt die Informationen in einen verständlichen String um
-  private static String erstelleAusgabe( Map<Integer, List<UmzugZuordnung>> map ) {
+  /**
+   * Wandelt die Informationen in einen verständlichen String um
+   */
+  private String erstelleAusgabe( Map<Integer, List<UmzugZuordnung>> map ) {
     StringBuffer buffer = new StringBuffer();
     buffer.append( "Umzug-Reihenfolge:" );
 
@@ -114,5 +116,9 @@ public class UmzugStrategie {
     }
     return buffer.toString();
   }
+
+  // -- Getter/Setter ----------------------------------------------------------
+
+  // -- Attribute --------------------------------------------------------------
 
 }

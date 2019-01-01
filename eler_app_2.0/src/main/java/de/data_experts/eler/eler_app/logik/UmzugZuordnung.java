@@ -8,14 +8,6 @@ import de.data_experts.eler.eler_app.model.Mitarbeiter;
  */
 public class UmzugZuordnung {
 
-  // -- Attribute --------------------------------------------------------------
-
-  private Mitarbeiter mitarbeiter;
-
-  private long alterPlatzId;
-
-  private long neuerPlatzId;
-
   // -- Konstruktoren ----------------------------------------------------------
 
   public UmzugZuordnung( Mitarbeiter mitarbeiter, long alterPlatzId, long neuerPlatzId ) {
@@ -49,5 +41,13 @@ public class UmzugZuordnung {
   public void setNeuerPlatzId( long neuerPlatzId ) {
     this.neuerPlatzId = neuerPlatzId;
   }
+
+  // -- Attribute --------------------------------------------------------------
+
+  private Mitarbeiter mitarbeiter;
+
+  private long alterPlatzId;
+
+  private long neuerPlatzId;
 
 }

@@ -18,13 +18,7 @@ import de.data_experts.eler.eler_app.model.Raum;
  */
 public class VerteilungStrategie {
 
-  // -- Attribute --------------------------------------------------------------
-
-  private final int MINDESTZAHL_MITARBEIETR_JE_RAUM = 2;
-
   // -- Konstruktoren ----------------------------------------------------------
-
-  // -- Getter/Setter ----------------------------------------------------------
 
   // -- public Methoden --------------------------------------------------------
 
@@ -188,4 +182,10 @@ public class VerteilungStrategie {
     }
     return mitarbeiterJeRaum;
   }
+
+  // -- Getter/Setter ----------------------------------------------------------
+
+  // -- Attribute --------------------------------------------------------------
+
+  private final int MINDESTZAHL_MITARBEIETR_JE_RAUM = 2;
 }

@@ -30,6 +30,27 @@ public class Mitarbeiter {
     this.aktiv = aktiv;
   }
 
+  // -- public Methoden --------------------------------------------------------
+
+  @Override
+  public boolean equals( Object o ) {
+    if ( o instanceof Mitarbeiter )
+      return getId() == ( (Mitarbeiter) o ).getId();
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return (int) id;
+  }
+
+  @Override
+  public String toString() {
+    return vorname + " " + nachname + " (" + kuerzel + ")";
+  }
+
+  // -- private Methoden -------------------------------------------------------
+
   // -- Getter/Setter ----------------------------------------------------------
 
   public long getId() {
@@ -59,52 +80,6 @@ public class Mitarbeiter {
   public void setAktiv( boolean aktiv ) {
     this.aktiv = aktiv;
   }
-
-  // -- public Methoden --------------------------------------------------------
-
-  @Override
-  public boolean equals( Object o ) {
-
-    if ( o == null || o.getClass() != getClass() )
-      return false;
-
-    if ( o == this )
-      return true;
-
-    Mitarbeiter other = (Mitarbeiter) o;
-
-    if ( vorname != null ^ other.vorname != null )
-      return false;
-
-    if ( vorname != null && other.vorname != null && !vorname.equals( other.vorname ) )
-      return false;
-
-    if ( nachname != null ^ other.nachname != null )
-      return false;
-
-    if ( nachname != null && other.nachname != null && !nachname.equals( other.nachname ) )
-      return false;
-
-    if ( kuerzel != null ^ other.kuerzel != null )
-      return false;
-
-    if ( kuerzel != null && other.kuerzel != null && !kuerzel.equals( other.kuerzel ) )
-      return false;
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return (int) id;
-  }
-
-  @Override
-  public String toString() {
-    return vorname + " " + nachname + " (" + kuerzel + ")";
-  }
-
-  // -- private Methoden -------------------------------------------------------
 
   // -- Attribute --------------------------------------------------------------
 

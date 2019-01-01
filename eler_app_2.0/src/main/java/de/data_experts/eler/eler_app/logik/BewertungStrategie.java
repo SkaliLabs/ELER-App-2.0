@@ -16,13 +16,7 @@ import de.data_experts.eler.eler_app.model.Raum;
  */
 public class BewertungStrategie {
 
-  // -- Attribute --------------------------------------------------------------
-
-  private final int FAKTOR_GLEICHER_NACHBAR = 5;
-
   // -- Konstruktoren ----------------------------------------------------------
-
-  // -- Getter/Setter ----------------------------------------------------------
 
   // -- public Methoden --------------------------------------------------------
 
@@ -81,5 +75,11 @@ public class BewertungStrategie {
 
     return result;
   }
+
+  // -- Getter/Setter ----------------------------------------------------------
+
+  // -- Attribute --------------------------------------------------------------
+
+  private final int FAKTOR_GLEICHER_NACHBAR = 5;
 
 }

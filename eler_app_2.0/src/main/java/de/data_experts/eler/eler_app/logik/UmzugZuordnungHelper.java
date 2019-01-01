@@ -13,13 +13,7 @@ import de.data_experts.eler.eler_app.model.Platzzuordnung;
  */
 public class UmzugZuordnungHelper {
 
-  // -- Attribute --------------------------------------------------------------
-
-  private static final int KEIN_PLATZ = -1;
-
   // -- Konstruktoren ----------------------------------------------------------
-
-  // -- Getter/Setter ----------------------------------------------------------
 
   // -- public Methoden --------------------------------------------------------
 
@@ -66,7 +60,6 @@ public class UmzugZuordnungHelper {
       Mitarbeiter m = p.getMitarbeiter();
       fuellPlatzzuordnungAlt( umzugZuordnungen, m, p.getPlatz().getId(), alterPlatz );
     }
-
   }
 
   private void fuellPlatzzuordnungAlt( List<UmzugZuordnung> umzugZuordnungen, Mitarbeiter m, long platzId,
@@ -95,5 +88,11 @@ public class UmzugZuordnungHelper {
       }
     }
   }
+
+  // -- Getter/Setter ----------------------------------------------------------
+
+  // -- Attribute --------------------------------------------------------------
+
+  private static final int KEIN_PLATZ = -1;
 
 }

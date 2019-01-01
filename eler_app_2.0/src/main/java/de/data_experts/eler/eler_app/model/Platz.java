@@ -31,6 +31,22 @@ public class Platz {
     this.aktiv = aktiv;
   }
 
+  // -- public Methoden --------------------------------------------------------
+
+  @Override
+  public boolean equals( Object o ) {
+    if ( o instanceof Platz )
+      return getId() == ( (Platz) o ).getId();
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return (int) id;
+  }
+
+  // -- private Methoden -------------------------------------------------------
+
   // -- Getter/Setter ----------------------------------------------------------
 
   public long getId() {
@@ -52,35 +68,6 @@ public class Platz {
   public void setAktiv( boolean aktiv ) {
     this.aktiv = aktiv;
   }
-
-  // -- public Methoden --------------------------------------------------------
-
-  @Override
-  public boolean equals( Object o ) {
-
-    if ( o == null || o.getClass() != getClass() )
-      return false;
-
-    if ( o == this )
-      return true;
-
-    Platz other = (Platz) o;
-
-    if ( bezeichnung != null ^ other.bezeichnung != null )
-      return false;
-
-    if ( bezeichnung != null && other.bezeichnung != null && !bezeichnung.equals( other.bezeichnung ) )
-      return false;
-
-    return true;
-  }
-
-  @Override
-  public int hashCode() {
-    return (int) id;
-  }
-
-  // -- private Methoden -------------------------------------------------------
 
   // -- Attribute --------------------------------------------------------------
 

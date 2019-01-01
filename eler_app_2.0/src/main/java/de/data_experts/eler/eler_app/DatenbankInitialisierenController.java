@@ -34,18 +34,6 @@ import de.data_experts.eler.eler_app.model.Raum;
 @Controller
 public class DatenbankInitialisierenController {
 
-  @Autowired
-  MitarbeiterRepository mitarbeiterRepository;
-
-  @Autowired
-  RaumRepository raumRepository;
-
-  @Autowired
-  PlatzRepository platzRepository;
-
-  @Autowired
-  KonfigurationRepository konfigurationRepository;
-
   @Bean
   public void initialisiereDaten() {
     initialisiereMitarbeiter();
@@ -126,4 +114,17 @@ public class DatenbankInitialisierenController {
   private Platz platz( Long platzId ) {
     return platzRepository.findById( platzId ).get();
   }
+
+  @Autowired
+  MitarbeiterRepository mitarbeiterRepository;
+
+  @Autowired
+  RaumRepository raumRepository;
+
+  @Autowired
+  PlatzRepository platzRepository;
+
+  @Autowired
+  KonfigurationRepository konfigurationRepository;
+
 }

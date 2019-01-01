@@ -26,6 +26,34 @@ public class Platzzuordnung implements Comparable<Platzzuordnung> {
     this.mitarbeiter = mitarbeiter;
   }
 
+  // -- public Methoden --------------------------------------------------------
+
+  @Override
+  public int hashCode() {
+    return (int) id;
+  }
+
+  @Override
+  public boolean equals( Object o ) {
+    if ( o instanceof Platzzuordnung )
+      return getId() == ( (Platzzuordnung) o ).getId();
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    if ( mitarbeiter == null )
+      return platz.getBezeichnung() + " : <nicht belegt>";
+    return platz.getBezeichnung() + " : " + mitarbeiter.getName();
+  }
+
+  @Override
+  public int compareTo( Platzzuordnung another ) {
+    return this.platz.getBezeichnung().compareTo( another.getPlatz().getBezeichnung() );
+  }
+
+  // -- private Methoden -------------------------------------------------------
+
   // -- Getter/Setter ----------------------------------------------------------
 
   public long getId() {
@@ -44,69 +72,17 @@ public class Platzzuordnung implements Comparable<Platzzuordnung> {
     return mitarbeiter;
   }
 
-  // -- public Methoden --------------------------------------------------------
-
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ( ( mitarbeiter == null ) ? 0 : mitarbeiter.hashCode() );
-    result = prime * result + ( ( platz == null ) ? 0 : platz.hashCode() );
-    return result;
-  }
-
-  @Override
-  public boolean equals( Object o ) {
-
-    if ( o == null || o.getClass() != getClass() )
-      return false;
-
-    if ( o == this )
-      return true;
-
-    Platzzuordnung other = (Platzzuordnung) o;
-
-    if ( platz == null && other.platz == null ) {
-      if ( mitarbeiter == null && other.mitarbeiter == null )
-        return true;
-
-      if ( mitarbeiter == null ^ other.mitarbeiter == null )
-        return false;
-
-      return mitarbeiter.equals( other.mitarbeiter );
-    }
-
-    if ( platz == null ^ other.platz == null )
-      return false;
-
-    return platz.equals( other.platz );
-  }
-
-  @Override
-  public String toString() {
-    if ( mitarbeiter == null )
-      return platz.getBezeichnung() + " : <nicht belegt>";
-    return platz.getBezeichnung() + " : " + mitarbeiter.getName();
-  }
-
-  @Override
-  public int compareTo( Platzzuordnung another ) {
-    return this.platz.getBezeichnung().compareTo( another.getPlatz().getBezeichnung() );
-  }
-
-  // -- private Methoden -------------------------------------------------------
-
   // -- Attribute --------------------------------------------------------------
 
   @Id
   @GeneratedValue
   private long id;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne( fetch = FetchType.EAGER )
   @JoinColumn( name = "platz" )
   private Platz platz;
 
-  @ManyToOne(fetch = FetchType.EAGER)
+  @ManyToOne( fetch = FetchType.EAGER )
   @JoinColumn( name = "mitarbeiter" )
   private Mitarbeiter mitarbeiter;
 

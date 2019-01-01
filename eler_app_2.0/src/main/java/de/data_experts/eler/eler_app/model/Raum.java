@@ -28,6 +28,22 @@ public class Raum {
     this.bezeichnung = bezeichnung;
   }
 
+  // -- public Methoden --------------------------------------------------------
+
+  @Override
+  public boolean equals( Object o ) {
+    if ( o instanceof Raum )
+      return raumNr.equals( ( (Raum) o ).raumNr );
+    return false;
+  }
+
+  @Override
+  public int hashCode() {
+    return raumNr;
+  }
+
+  // -- private Methoden -------------------------------------------------------
+
   // -- Getter/Setter ----------------------------------------------------------
 
   public Integer getRaumNr() {
@@ -47,20 +63,6 @@ public class Raum {
   public void addPlatz( Platz platz ) {
     getPlaetze().add( platz );
   }
-
-  // -- public Methoden --------------------------------------------------------
-
-  @Override
-  public boolean equals( Object o ) {
-    return o instanceof Raum ? raumNr.equals( ( (Raum) o ).raumNr ) : false;
-  }
-
-  @Override
-  public int hashCode() {
-    return raumNr.hashCode();
-  }
-
-  // -- private Methoden -------------------------------------------------------
 
   // -- Attribute --------------------------------------------------------------
 
