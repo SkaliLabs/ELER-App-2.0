@@ -15,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 /**
@@ -33,9 +32,14 @@ public class Konfiguration {
   }
 
   public Konfiguration( List<Platzzuordnung> platzzuordnungen ) {
+    this( platzzuordnungen, null );
+  }
+
+  public Konfiguration( List<Platzzuordnung> platzzuordnungen, Konfiguration vorgaengerKonfig ) {
     this.gueltigVon = LocalDateTime.now();
     this.gueltigBis = LocalDateTime.now().plusMonths( 2 ).minusDays( 1 );
     this.platzzuordnungen = platzzuordnungen;
+    this.vorgaengerKonfId = vorgaengerKonfig == null ? null : vorgaengerKonfig.getId();
   }
 
   // -- public Methoden --------------------------------------------------------
@@ -109,8 +113,8 @@ public class Konfiguration {
     return platzzuordnungen;
   }
 
-  public String getTuerschilder() {
-    return tuerschilder;
+  public Long getVorgaengerKonfId() {
+    return vorgaengerKonfId;
   }
 
   // -- Attribute --------------------------------------------------------------
@@ -127,8 +131,7 @@ public class Konfiguration {
   @JoinColumn( name = "konfiguration" )
   private List<Platzzuordnung> platzzuordnungen;
 
-  @Lob
-  private String tuerschilder;
+  private Long vorgaengerKonfId;
 
   private transient DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd. MMMM yyyy", Locale.GERMANY );
 

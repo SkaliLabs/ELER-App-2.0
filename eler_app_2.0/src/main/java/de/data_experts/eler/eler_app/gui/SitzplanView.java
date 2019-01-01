@@ -16,10 +16,10 @@ package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
-
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -53,12 +53,21 @@ public class SitzplanView extends VerticalLayout {
     add( raumreihe2 );
 
     Button wuerfelnButton = new Button( "Würfeln!", e -> {
-      konfigurationRepository.save( service.generiereKonfiguration() );
+      konfigurationRepository.save( service.generiereKonfiguration( aktuelleKonfiguration ) );
       UI.getCurrent().getPage().reload();
     } );
     wuerfelnButton.getStyle().set( "color", DUNKEL );
     wuerfelnButton.getStyle().set( "background-color", HELL );
     add( wuerfelnButton );
+
+    Button umzugButton = new Button( "Umzugsplan anzeigen!", e -> {
+      Dialog dialog = new Dialog();
+      dialog.add( new UmzugView( aktuelleKonfiguration ) );
+      dialog.open();
+    } );
+    umzugButton.getStyle().set( "color", DUNKEL );
+    umzugButton.getStyle().set( "background-color", HELL );
+    add( umzugButton );
   }
 
   private Component getRaum( int raumnr, Fensterseite fensterseite ) {

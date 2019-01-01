@@ -22,7 +22,8 @@ public class VerteilungStrategie {
 
   // -- public Methoden --------------------------------------------------------
 
-  public Konfiguration generiereVerteilung( List<Raum> raeume, List<Mitarbeiter> mitarbeiter ) {
+  public Konfiguration generiereVerteilung( List<Raum> raeume, List<Mitarbeiter> mitarbeiter,
+      Konfiguration vorherigeKonfiguration ) {
     List<Platzzuordnung> zuordnungenVerteilt = new ArrayList<>();
     Random zufallsGenerator = new Random( new Date().getTime() );
 
@@ -53,7 +54,7 @@ public class VerteilungStrategie {
     for ( Platz platz : belegbarerPlaetze )
       zuordnungenVerteilt.add( new Platzzuordnung( platz, null ) );
 
-    return new Konfiguration( zuordnungenVerteilt );
+    return new Konfiguration( zuordnungenVerteilt, vorherigeKonfiguration );
   }
 
   // -- private Methoden -------------------------------------------------------

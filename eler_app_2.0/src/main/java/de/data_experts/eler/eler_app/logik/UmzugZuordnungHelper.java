@@ -3,7 +3,12 @@ package de.data_experts.eler.eler_app.logik;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 import de.data_experts.eler.eler_app.model.Mitarbeiter;
 import de.data_experts.eler.eler_app.model.Platzzuordnung;
@@ -11,14 +16,17 @@ import de.data_experts.eler.eler_app.model.Platzzuordnung;
 /**
  * Erzeugt den Umzugsalgorithmus anhand einer einer alten und einer neuen Konfiguration in Form eines Strings.
  */
+@Component
 public class UmzugZuordnungHelper {
 
   // -- Konstruktoren ----------------------------------------------------------
 
   // -- public Methoden --------------------------------------------------------
 
-  public String erstelleUmzugZuordnungen( Konfiguration konfigurationAlt, Konfiguration konfigurationNeu ) {
+  public Map<Integer, List<UmzugZuordnung>> erstelleUmzugZuordnungen( Konfiguration konfigurationNeu ) {
     List<UmzugZuordnung> umzugZuordnungen = new ArrayList<>();
+    Konfiguration konfigurationAlt = konfigurationenRepository.findById( konfigurationNeu.getVorgaengerKonfId() ).get();
+
     fuelleUmzugZuordnungenMitMitarbeiter( umzugZuordnungen, konfigurationAlt );
     fuelleUmzugZuordnungenMitMitarbeiter( umzugZuordnungen, konfigurationNeu );
 
@@ -92,6 +100,9 @@ public class UmzugZuordnungHelper {
   // -- Getter/Setter ----------------------------------------------------------
 
   // -- Attribute --------------------------------------------------------------
+
+  @Autowired
+  KonfigurationRepository konfigurationenRepository;
 
   private static final int KEIN_PLATZ = -1;
 

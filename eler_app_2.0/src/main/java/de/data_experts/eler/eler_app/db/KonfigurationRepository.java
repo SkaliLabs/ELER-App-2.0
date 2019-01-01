@@ -21,7 +21,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import de.data_experts.eler.eler_app.model.Konfiguration;
 
-public interface KonfigurationRepository extends JpaRepository<Konfiguration, String> {
+public interface KonfigurationRepository extends JpaRepository<Konfiguration, Long> {
 
   Konfiguration findByGueltigBis( Date gueltigBis );
 

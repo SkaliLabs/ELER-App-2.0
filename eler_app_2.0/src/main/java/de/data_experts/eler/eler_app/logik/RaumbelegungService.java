@@ -25,11 +25,8 @@ public class RaumbelegungService {
    * Erzeugt eine neue Konfiguration. Die eingentliche Zufallsverteilung wird durch die VerteilungStrategie erzeugt. Es
    * werden mehrere Zufallsverteilungen erzeugt, von denen die mit der geringsten Ähnlichkeit zur aktuellen
    * Konfiguration durch die BewertungStragegie ausgewählt wird.
-   * <p>
-   *
-   * @return
    */
-  public Konfiguration generiereKonfiguration() {
+  public Konfiguration generiereKonfiguration( Konfiguration vorherigeKonfiguration ) {
     VerteilungStrategie verteilungStrategie = new VerteilungStrategie();
     BewertungStrategie bewertungStrategie = new BewertungStrategie();
 
@@ -38,7 +35,7 @@ public class RaumbelegungService {
 
     for ( int i = 0; i < ANZAHL_GENERIERUNGSLAEUFE; i++ ) {
       Konfiguration konf = verteilungStrategie.generiereVerteilung( raumRepository.findAll(),
-          mitarbeiterRepository.findAll() );
+          mitarbeiterRepository.findAll(), vorherigeKonfiguration );
       int bewertungKonfiguration = bewertungStrategie.bewerteKonfiguration( konfigurationenRepository.findAll(), konf );
 
       if ( bewertungKonfiguration < gesamtBewertung ) {
@@ -48,11 +45,6 @@ public class RaumbelegungService {
     }
 
     return result;
-  }
-
-  public String getUmzug( Konfiguration konfigurationNeu ) {
-    return new UmzugZuordnungHelper().erstelleUmzugZuordnungen( konfigurationenRepository.findAktuelle(),
-        konfigurationNeu );
   }
 
   // -- private Methoden ------------------------------------------------------

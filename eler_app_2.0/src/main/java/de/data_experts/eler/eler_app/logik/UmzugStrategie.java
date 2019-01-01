@@ -14,7 +14,7 @@ public class UmzugStrategie {
 
   // -- public Methoden --------------------------------------------------------
 
-  public String erstelleUmzug( List<UmzugZuordnung> umzugZuordnungen ) {
+  public Map<Integer, List<UmzugZuordnung>> erstelleUmzug( List<UmzugZuordnung> umzugZuordnungen ) {
     Map<Integer, List<UmzugZuordnung>> map = new HashMap<>();
     Integer zyklus = 1;
 
@@ -23,7 +23,7 @@ public class UmzugStrategie {
       map.put( zyklus++, zuordnungen );
       umzugZuordnungen.removeAll( zuordnungen );
     }
-    return erstelleAusgabe( map );
+    return map;
   }
 
   // -- private Methoden -------------------------------------------------------
