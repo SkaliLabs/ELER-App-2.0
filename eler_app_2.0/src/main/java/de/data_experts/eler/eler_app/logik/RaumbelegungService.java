@@ -65,11 +65,6 @@ public class RaumbelegungService {
     return result;
   }
 
-  public String generiereZeichnung( Konfiguration konfiguration ) {
-    HTMLZeichnungsStrategie zeichnungsStrategie = new HTMLZeichnungsStrategie();
-    return zeichnungsStrategie.erstelleZeichnung( konfiguration );
-  }
-
   public String getUmzug( Konfiguration konfigurationNeu ) {
     return new UmzugZuordnungHelper().erstelleUmzugZuordnungen( konfigurationenRepository.findAktuelle(),
         konfigurationNeu );
