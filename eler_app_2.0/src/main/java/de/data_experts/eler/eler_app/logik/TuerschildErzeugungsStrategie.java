@@ -64,7 +64,7 @@ public class TuerschildErzeugungsStrategie {
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1263--></td></tr>\r\n" +
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1264--></td></tr>\r\n" +
       "<tr style=\"height:1.2cm\"><td colspan=2></td></tr>\r\n" +
-      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\""
+      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"raumbilder/logo.png\""
       + "style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table>\r\n" +
       "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; page-break-before:always; background-position:center\""
       + "rules=none\r\n background=\"raumbilder/Wiese.png\">\r\n" +
@@ -76,7 +76,7 @@ public class TuerschildErzeugungsStrategie {
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1213--></td></tr>\r\n" +
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1214--></td></tr>\r\n" +
       "<tr style=\"height:1.2cm\"><td colspan=2></td></tr>\r\n" +
-      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\" "
+      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"raumbilder/logo.png\" "
       + "style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table>\r\n" +
       "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; page-break-before:always; background-position:center\""
       + "rules=none\r\n background=\"raumbilder/Strand.png\">\r\n" +
@@ -88,6 +88,6 @@ public class TuerschildErzeugungsStrategie {
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1253--></td></tr>\r\n" +
       "<tr style=\"height:1cm; font-size:30\"><td style=\"width:3cm\"></td><td><!--#1254--></td></tr>\r\n" +
       "<tr style=\"height:1.2cm\"><td colspan=2></td></tr>\r\n" +
-      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"///m:/USER.ALL/_data_experts/Bilder/logo.png\" style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table></body></html>";
+      "<tr style=\"max-height:2.5cm\"><td colspan=2 align=right><img src=\"raumbilder/logo.png\" style=\"height:2.4cm; padding-right:0.5cm\"></td></tr></table></body></html>";
 
 }
