@@ -2,6 +2,7 @@ package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
+import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class PlatzView extends VerticalLayout {
     allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 126 ) );
 
     Button button = new Button( "Speichern!", e -> platzRepo.saveAll( allePlaetze ) );
-    button.getStyle().set( "color", DUNKEL );
+    button.getStyle().set( "color", MITTEL );
     button.getStyle().set( "background-color", HELL );
     add( button );
   }

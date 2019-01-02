@@ -16,6 +16,7 @@ package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
+import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class RaumView extends VerticalLayout {
     add( grid );
 
     Button button = new Button( "Speichern!", e -> repo.saveAll( alleRaeume ) );
-    button.getStyle().set( "color", DUNKEL );
+    button.getStyle().set( "color", MITTEL );
     button.getStyle().set( "background-color", HELL );
     add( button );
   }

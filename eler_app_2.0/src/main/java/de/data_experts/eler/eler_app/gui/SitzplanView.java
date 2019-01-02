@@ -16,6 +16,7 @@ package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
 import static de.data_experts.eler.eler_app.gui.Styles.HELL;
+import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.List;
 import java.util.Map;
@@ -81,7 +82,7 @@ public class SitzplanView extends VerticalLayout {
 
   private Button createButton( String titel, ComponentEventListener<ClickEvent<Button>> clickListener ) {
     Button wuerfelnButton = new Button( titel, clickListener );
-    wuerfelnButton.getStyle().set( "color", DUNKEL );
+    wuerfelnButton.getStyle().set( "color", MITTEL );
     wuerfelnButton.getStyle().set( "background-color", HELL );
     return wuerfelnButton;
   }
