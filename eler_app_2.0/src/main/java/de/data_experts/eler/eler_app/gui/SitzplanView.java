@@ -35,6 +35,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
+import de.data_experts.eler.eler_app.logik.Kuechenplan;
 import de.data_experts.eler.eler_app.logik.RaumbelegungService;
 import de.data_experts.eler.eler_app.logik.UmzugZuordnung;
 import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
@@ -48,8 +49,8 @@ public class SitzplanView extends VerticalLayout {
       UmzugZuordnungHelper umzugZuordnungHelper ) {
     aktuelleKonfiguration = konfigurationRepository.findAktuelle();
 
-    H3 titel = new H3( createTitel( aktuelleKonfiguration.getGueltigVonAlsString()
-        + " - " + aktuelleKonfiguration.getGueltigBisAlsString() ) );
+    H3 titel = new H3( createTitel( aktuelleKonfiguration.getGueltigVonAlsString() + " - "
+        + aktuelleKonfiguration.getGueltigBisAlsString() ) );
     titel.getStyle().set( "color", DUNKEL );
     add( titel );
 
@@ -102,13 +103,15 @@ public class SitzplanView extends VerticalLayout {
   }
 
   private Component getRaum( int raumnr, Fensterseite fensterseite ) {
+    boolean hatRaumKuechendienst = new Kuechenplan().hatRaumKuechendienst( raumnr );
+    String rahmenfarbe = hatRaumKuechendienst ? Styles.DUNKEL : Styles.SCHWARZ;
     TextField platz1 = createPlatz( raumnr * 10 + 1 );
-    platz1.getStyle().set( "border-right", "1px solid " + DUNKEL );
-    platz1.getStyle().set( "border-bottom", "1px solid " + DUNKEL );
+    platz1.getStyle().set( "border-right", "1px solid " + rahmenfarbe );
+    platz1.getStyle().set( "border-bottom", "1px solid " + rahmenfarbe );
     TextField platz2 = createPlatz( raumnr * 10 + 2 );
-    platz2.getStyle().set( "border-bottom", "1px solid " + DUNKEL );
+    platz2.getStyle().set( "border-bottom", "1px solid " + rahmenfarbe );
     TextField platz3 = createPlatz( raumnr * 10 + 3 );
-    platz3.getStyle().set( "border-right", "1px solid " + DUNKEL );
+    platz3.getStyle().set( "border-right", "1px solid " + rahmenfarbe );
     TextField platz4 = createPlatz( raumnr * 10 + 4 );
 
     HorizontalLayout reihe1 = createReihe();
@@ -117,19 +120,19 @@ public class SitzplanView extends VerticalLayout {
     HorizontalLayout reihe2 = createReihe();
     reihe2.add( platz3 );
     reihe2.add( platz4 );
-    VerticalLayout raum = createRaum( fensterseite );
+    VerticalLayout raum = createRaum( fensterseite, rahmenfarbe );
     raum.add( reihe1 );
     raum.add( reihe2 );
     return raum;
   }
 
-  private VerticalLayout createRaum( Fensterseite fensterseite ) {
+  private VerticalLayout createRaum( Fensterseite fensterseite, String rahmenfarbe ) {
     VerticalLayout raum = new VerticalLayout();
     raum.setWidth( "25%" );
     raum.setMargin( false );
     raum.setPadding( true );
     raum.setSpacing( false );
-    raum.getStyle().set( "border-" + fensterseite.bezeichnung, "2px solid " + DUNKEL );
+    raum.getStyle().set( "border-" + fensterseite.bezeichnung, "2px solid " + rahmenfarbe );
     return raum;
   }
 
