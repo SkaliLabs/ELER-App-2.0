@@ -46,7 +46,7 @@ public class MitarbeiterView extends VerticalLayout {
         .withProperty( "checked", mitarbeiter -> mitarbeiter.isAktiv() ? "checked" : "" )
         .withEventHandler( "handleChange", mitarbeiter -> {
           mitarbeiter.setAktiv( !mitarbeiter.isAktiv() );
-          System.out.println( "Status für " + mitarbeiter.getKuerzel() + " geändert auf " + mitarbeiter.isAktiv() );
+          System.out.println( "Status fÃ¼r " + mitarbeiter.getKuerzel() + " geÃ¤ndert auf " + mitarbeiter.isAktiv() );
         } ) )
         .setHeader( "Status" );
     grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );

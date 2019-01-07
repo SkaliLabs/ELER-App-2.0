@@ -27,7 +27,7 @@ public class MainView extends Div implements RouterLayout {
     HorizontalLayout navigation = new HorizontalLayout();
     navigation.add( createRouterLink( "Sitzplan", SitzplanView.class ) );
     navigation.add( createRouterLink( "Mitarbeiter", MitarbeiterView.class ) );
-    navigation.add( createRouterLink( "Plätze", PlatzView.class ) );
+    navigation.add( createRouterLink( "PlÃ¤tze", PlatzView.class ) );
     navigation.add( createAnchor() );
     navigation.getStyle().set( "background-color", MITTEL );
     navigation.getStyle().set( "text-align", "center" );
@@ -35,7 +35,7 @@ public class MainView extends Div implements RouterLayout {
   }
 
   private Anchor createAnchor() {
-    Anchor link = new Anchor( "/tuerschilder", "Türschilder" );
+    Anchor link = new Anchor( "/tuerschilder", "TÃ¼rschilder" );
     link.getStyle().set( "color", HELL );
     link.getStyle().set( "text-align", "center" );
     link.getStyle().set( "margin", "1%" );

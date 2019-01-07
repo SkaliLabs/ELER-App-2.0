@@ -20,7 +20,7 @@ import de.data_experts.eler.eler_app.db.RaumRepository;
 import de.data_experts.eler.eler_app.model.Platz;
 import de.data_experts.eler.eler_app.model.Raum;
 
-@PageTitle( "Plätze" )
+@PageTitle( "PlÃ¤tze" )
 @Route( value = "plaetze", layout = MainView.class )
 public class PlatzView extends VerticalLayout {
 
@@ -51,7 +51,7 @@ public class PlatzView extends VerticalLayout {
         .withProperty( "checked", platz -> platz.isAktiv() ? "checked" : "" )
         .withEventHandler( "handleChange", platz -> {
           platz.setAktiv( !platz.isAktiv() );
-          System.out.println( "Status für Platz " + platz.getId() + " geändert auf " + platz.isAktiv() );
+          System.out.println( "Status fÃ¼r Platz " + platz.getId() + " geÃ¤ndert auf " + platz.isAktiv() );
         } ) )
         .setHeader( "Status" );
     grid.addColumn( Platz::getBezeichnung ).setHeader( "Bezeichnung" );

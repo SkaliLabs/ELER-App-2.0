@@ -29,7 +29,7 @@ import com.vaadin.flow.router.Route;
 import de.data_experts.eler.eler_app.db.RaumRepository;
 import de.data_experts.eler.eler_app.model.Raum;
 
-@PageTitle( "Räume" )
+@PageTitle( "RÃ¤ume" )
 @Route( value = "raeume", layout = MainView.class )
 public class RaumView extends VerticalLayout {
 
