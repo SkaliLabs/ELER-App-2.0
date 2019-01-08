@@ -10,7 +10,7 @@ import de.data_experts.eler.eler_app.model.Platzzuordnung;
 import de.data_experts.eler.eler_app.model.Raum;
 
 /**
- * Erzeugt die Türschilder zu einer Konfiguration in Form eines HTML-Strings.
+ * Erzeugt die Tï¿½rschilder zu einer Konfiguration in Form eines HTML-Strings.
  */
 public class TuerschildErzeugungsStrategie {
 
@@ -40,12 +40,12 @@ public class TuerschildErzeugungsStrategie {
   // -- private Methoden -------------------------------------------------------
 
   private String ersetzeUmlaute( String mitUmlauten ) {
-    String ohneUmlaute = mitUmlauten.replace( "Ö", "&Ouml;" );
-    ohneUmlaute = ohneUmlaute.replace( "Ü", "&Uuml;" );
-    ohneUmlaute = ohneUmlaute.replace( "Ä", "&Auml;" );
-    ohneUmlaute = ohneUmlaute.replace( "ö", "&ouml;" );
-    ohneUmlaute = ohneUmlaute.replace( "ü", "&uuml;" );
-    ohneUmlaute = ohneUmlaute.replace( "ä", "&auml;" );
+    String ohneUmlaute = mitUmlauten.replace( "ï¿½", "&Ouml;" );
+    ohneUmlaute = ohneUmlaute.replace( "ï¿½", "&Uuml;" );
+    ohneUmlaute = ohneUmlaute.replace( "ï¿½", "&Auml;" );
+    ohneUmlaute = ohneUmlaute.replace( "ï¿½", "&ouml;" );
+    ohneUmlaute = ohneUmlaute.replace( "ï¿½", "&uuml;" );
+    ohneUmlaute = ohneUmlaute.replace( "ï¿½", "&auml;" );
     return ohneUmlaute;
   }
 
@@ -53,7 +53,7 @@ public class TuerschildErzeugungsStrategie {
 
   // -- Attribute --------------------------------------------------------------
 
-  private String vorlage = "<html><head><meta charset=\"utf-8\"/><title>Türschilder</title></head><body>\r\n"
+  private String vorlage = "<html><head><meta charset=\"utf-8\"/><title>TÃ¼rschilder</title></head><body>\r\n"
       + "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; background-position:center\""
       + "rules=none\r\n background=\"raumbilder/Wald.png\">\r\n" +
       "<tr style=\"height:3cm\"><td colspan=2 align=center style=\"font-size:80\"><b><u>1.26</u></b></td></tr>\r\n" +
