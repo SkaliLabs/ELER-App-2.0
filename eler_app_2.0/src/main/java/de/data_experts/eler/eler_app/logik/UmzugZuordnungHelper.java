@@ -2,17 +2,15 @@ package de.data_experts.eler.eler_app.logik;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.model.Konfiguration;
-import de.data_experts.eler.eler_app.model.Mitarbeiter;
-import de.data_experts.eler.eler_app.model.Platzzuordnung;
 
 /**
  * Erzeugt den Umzugsalgorithmus anhand einer einer alten und einer neuen Konfiguration in Form eines Strings.
@@ -28,77 +26,36 @@ public class UmzugZuordnungHelper {
     if ( konfigurationNeu.getVorgaengerKonfId() == null )
       return Collections.emptyMap();
 
-    List<UmzugZuordnung> umzugZuordnungen = new ArrayList<>();
+    final List<UmzugZuordnung> umzugZuordnungen = createUmzugZuordnungen( konfigurationNeu );
+
     Konfiguration konfigurationAlt = konfigurationenRepository.findById( konfigurationNeu.getVorgaengerKonfId() ).get();
+    altePlaetzeSetzen( konfigurationAlt, umzugZuordnungen );
 
-    fuelleUmzugZuordnungenMitMitarbeiter( umzugZuordnungen, konfigurationAlt );
-    fuelleUmzugZuordnungenMitMitarbeiter( umzugZuordnungen, konfigurationNeu );
-
-    fuelleUmzugZuordnungenMitPlaetzen( umzugZuordnungen, konfigurationAlt, true );
-    fuelleUmzugZuordnungenMitPlaetzen( umzugZuordnungen, konfigurationNeu, false );
-
-    bereinigeListe( umzugZuordnungen );
+    List<UmzugZuordnung> bereinigteZuordnungen = umzugZuordnungen.stream()
+        .filter( zuordnung -> zuordnung.getAlterPlatzId() != zuordnung.getNeuerPlatzId() )
+        .collect( Collectors.toList() );
 
     UmzugStrategie strategie = new UmzugStrategie();
-    return strategie.erstelleUmzug( umzugZuordnungen );
+    return strategie.erstelleUmzug( bereinigteZuordnungen );
   }
 
   // -- private Methoden -------------------------------------------------------
 
-  private void fuelleUmzugZuordnungenMitMitarbeiter( List<UmzugZuordnung> umzugZuordnungen,
-      Konfiguration konfiguration ) {
-    for ( Platzzuordnung p : konfiguration.getPlatzzuordnungen() ) {
-      Mitarbeiter m = p.getMitarbeiter();
-      if ( m == null )
-        continue;
-      if ( !hatListeElementZuMitarbeiter( umzugZuordnungen, m ) )
-        umzugZuordnungen.add( new UmzugZuordnung( m, KEIN_PLATZ, KEIN_PLATZ ) );
-    }
-  }
-
-  private boolean hatListeElementZuMitarbeiter( List<UmzugZuordnung> umzugZuordnungen, Mitarbeiter m ) {
-    if ( m == null )
-      return false;
-
-    for ( UmzugZuordnung u : umzugZuordnungen )
-      if ( u.getMitarbeiterId() == m.getId() )
-        return true;
-    return false;
-  }
-
-  private void fuelleUmzugZuordnungenMitPlaetzen( List<UmzugZuordnung> umzugZuordnungen, Konfiguration konfiguration,
-      boolean alterPlatz ) {
-    for ( Platzzuordnung p : konfiguration.getPlatzzuordnungen() ) {
-      Mitarbeiter m = p.getMitarbeiter();
-      fuellPlatzzuordnungAlt( umzugZuordnungen, m, p.getPlatz().getId(), alterPlatz );
-    }
-  }
-
-  private void fuellPlatzzuordnungAlt( List<UmzugZuordnung> umzugZuordnungen, Mitarbeiter m, long platzId,
-      boolean alterPlatz ) {
-    for ( UmzugZuordnung u : umzugZuordnungen ) {
-      if ( m == null )
-        continue;
-
-      if ( u.getMitarbeiterId() == m.getId() )
-        if ( alterPlatz )
-          u.setAlterPlatzId( platzId );
-        else
-          u.setNeuerPlatzId( platzId );
-    }
-  }
-
-  private void bereinigeListe( List<UmzugZuordnung> umzugZuordnungen ) {
-    Iterator<UmzugZuordnung> it = umzugZuordnungen.iterator();
-    while ( it.hasNext() ) {
-      UmzugZuordnung u = it.next();
-      if ( u.getNeuerPlatzId() == KEIN_PLATZ ) {
-        it.remove();
+  private void altePlaetzeSetzen( Konfiguration konfigurationAlt, final List<UmzugZuordnung> umzugZuordnungen ) {
+    konfigurationAlt.getPlatzzuordnungen().forEach( alterPlatz -> {
+      long mitarbeiterId = alterPlatz.getMitarbeiter().getId();
+      for ( UmzugZuordnung zuordnung : umzugZuordnungen ) {
+        if ( zuordnung.getMitarbeiterId() == mitarbeiterId )
+          zuordnung.setAlterPlatzId( alterPlatz.getPlatz().getId() );
       }
-      else if ( u.getAlterPlatzId() == u.getNeuerPlatzId() ) {
-        it.remove();
-      }
-    }
+    } );
+  }
+
+  private List<UmzugZuordnung> createUmzugZuordnungen( Konfiguration konfigurationNeu ) {
+    final List<UmzugZuordnung> umzugZuordnungen = new ArrayList<>();
+    konfigurationNeu.getPlatzzuordnungen().forEach( zuordnung -> umzugZuordnungen
+        .add( new UmzugZuordnung( zuordnung.getMitarbeiter(), KEIN_PLATZ, zuordnung.getPlatz().getId() ) ) );
+    return umzugZuordnungen;
   }
 
   // -- Getter/Setter ----------------------------------------------------------

@@ -14,7 +14,7 @@ import de.data_experts.eler.eler_app.model.Platzzuordnung;
 import de.data_experts.eler.eler_app.model.Raum;
 
 /**
- * Erzeugt eine neue Konfiguration durch Verteilung von Mitarbeitern auf Räume.
+ * Erzeugt eine neue Konfiguration durch Verteilung von Mitarbeitern auf RÃ¤ume.
  */
 public class VerteilungStrategie {
 
@@ -27,7 +27,7 @@ public class VerteilungStrategie {
     List<Platzzuordnung> zuordnungenVerteilt = new ArrayList<>();
     Random zufallsGenerator = new Random( new Date().getTime() );
 
-    // sammle die Plätze ein, die in die Zufallsverteilung eingehen sollen
+    // sammle die PlÃ¤tze ein, die in die Zufallsverteilung eingehen sollen
     List<Platz> belegbarerPlaetze = new ArrayList<>();
     for ( Raum raum : raeume )
       for ( Platz platz : raum.getPlaetze() )
@@ -40,7 +40,7 @@ public class VerteilungStrategie {
       if ( arbeiter.isAktiv() )
         zuVerteilendeMitarbeiter.add( arbeiter );
 
-    // zufällige Zuordnungen zwischen Mitarbeitern und Plätzen schaffen
+    // zufÃ¤llige Zuordnungen zwischen Mitarbeitern und PlÃ¤tzen schaffen
     for ( Mitarbeiter arbeiter : zuVerteilendeMitarbeiter ) {
       int zufallsIndex = zufallsGenerator.nextInt( belegbarerPlaetze.size() );
       zuordnungenVerteilt.add( new Platzzuordnung( belegbarerPlaetze.get( zufallsIndex ), arbeiter ) );
@@ -50,7 +50,7 @@ public class VerteilungStrategie {
     // absichern, dass kein Raum mit nur einem Mitarbeiter belegt ist
     sichereMindestanzahlMitarbeiterJeRaumAb( zuordnungenVerteilt, belegbarerPlaetze );
 
-    // Platzzuordnungen für leere Plätze erstellen
+    // Platzzuordnungen fÃ¼r leere PlÃ¤tze erstellen
     for ( Platz platz : belegbarerPlaetze )
       zuordnungenVerteilt.add( new Platzzuordnung( platz, null ) );
 
@@ -60,8 +60,8 @@ public class VerteilungStrategie {
   // -- private Methoden -------------------------------------------------------
 
   /*
-   * Wenn möglich werden die Platzzuordnungen so verschoben, dass in jedem Raum die MINDESTZAHL_MITARBEIETR_JE_RAUM
-   * eingehalten wird. Dazu werden Räume entweder aufgefüllt (ein Mitarbeiter aus einem Raum mit vielen Mitarbeitern
+   * Wenn mÃ¶glich werden die Platzzuordnungen so verschoben, dass in jedem Raum die MINDESTZAHL_MITARBEIETR_JE_RAUM
+   * eingehalten wird. Dazu werden RÃ¤ume entweder aufgefÃ¼llt (ein Mitarbeiter aus einem Raum mit vielen Mitarbeitern
    * wird in den betreffenden Raum versetzt) oder geleert (der Mitarbeiter aus dem betroffenen Raum wird in einen noch
    * nicht voll besetzten Raum versetzt).
    */
@@ -71,9 +71,9 @@ public class VerteilungStrategie {
 
     if ( isMindestanzahlMitarbeiterJeRaumUnterschritten( mitarbeiterJeRaum ) ) {
 
-      // Raum mit nur einem Mitarbeiter auffüllen oder leeren?
+      // Raum mit nur einem Mitarbeiter auffÃ¼llen oder leeren?
       if ( kannAufgefuelltWerden( mitarbeiterJeRaum ) ) {
-        // Raum auffüllen
+        // Raum auffï¿½llen
         Platz platz = getFreienPlatzAusRaum( getUnterbesetztenRaum( mitarbeiterJeRaum ), belegbarePlaetze );
         Platzzuordnung zuordnung = getPlatzzuordnungAusRaum( getRaumMitHoherBelegung( mitarbeiterJeRaum ),
             zuordnungen );
@@ -96,7 +96,7 @@ public class VerteilungStrategie {
   }
 
   /*
-   * Liefert aus der übergebenen Map den ersten Raum, der die Mindestanzahl der Mitarbeiter pro Raum unterschreitet.
+   * Liefert aus der Ã¼bergebenen Map den ersten Raum, der die Mindestanzahl der Mitarbeiter pro Raum unterschreitet.
    */
   private Raum getUnterbesetztenRaum( Map<Raum, List<Mitarbeiter>> mitarbeiterJeRaum ) {
     for ( Raum raum : mitarbeiterJeRaum.keySet() )
@@ -106,7 +106,7 @@ public class VerteilungStrategie {
   }
 
   /*
-   * Es wird der erste gefundene leere Platz geliefert. Gibt es keinen leeren Platz wird null zurückgegeben.
+   * Es wird der erste gefundene leere Platz geliefert. Gibt es keinen leeren Platz wird null zurÃ¼ckgegeben.
    */
   private Platz getFreienPlatzAusRaum( Raum raum, List<Platz> belegbarePlaetze ) {
     for ( Platz platz : belegbarePlaetze )
@@ -116,7 +116,7 @@ public class VerteilungStrategie {
   }
 
   /*
-   * Ermittelt die zum übergebenen Platz zugehörige Platzzuordnung aus der übergebenen Liste von Platzzuordnungen.
+   * Ermittelt die zum Ã¼bergebenen Platz zugehÃ¶rige Platzzuordnung aus der Ã¼bergebenen Liste von Platzzuordnungen.
    */
   private Platzzuordnung getPlatzzuordnungZuPlatz( Platz platz, List<Platzzuordnung> platzzuordnungen ) {
     for ( Platzzuordnung zuordnung : platzzuordnungen )
@@ -126,7 +126,7 @@ public class VerteilungStrategie {
   }
 
   /*
-   * Ermittelt den ersten in der übergebenen Liste belegten Platz aus dem übergebenen Raum.
+   * Ermittelt den ersten in der Ã¼bergebenen Liste belegten Platz aus dem Ã¼bergebenen Raum.
    */
   private Platz getBelegtenPlatzAusRaum( Raum raum, List<Platzzuordnung> zuordnungen ) {
     for ( Platzzuordnung zuordnung : zuordnungen )

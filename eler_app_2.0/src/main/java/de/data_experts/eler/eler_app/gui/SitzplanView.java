@@ -19,7 +19,6 @@ import static de.data_experts.eler.eler_app.gui.Styles.HELL;
 import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.List;
-import java.util.Map;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
@@ -28,6 +27,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -35,11 +35,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
-import de.data_experts.eler.eler_app.logik.Kuechenplan;
 import de.data_experts.eler.eler_app.logik.RaumbelegungService;
-import de.data_experts.eler.eler_app.logik.UmzugZuordnung;
+import de.data_experts.eler.eler_app.logik.SitzplanLogik;
 import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
-import de.data_experts.eler.eler_app.model.Konfiguration;
 
 @PageTitle( "Sitzplan" )
 @Route( value = "", layout = MainView.class )
@@ -47,10 +45,9 @@ public class SitzplanView extends VerticalLayout {
 
   public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service,
       UmzugZuordnungHelper umzugZuordnungHelper ) {
-    aktuelleKonfiguration = konfigurationRepository.findAktuelle();
+    sitzplanLogik = new SitzplanLogik( konfigurationRepository, service, umzugZuordnungHelper );
 
-    H3 titel = new H3( createTitel( aktuelleKonfiguration.getGueltigVonAlsString() + " - "
-        + aktuelleKonfiguration.getGueltigBisAlsString() ) );
+    H3 titel = new H3( createTitel( sitzplanLogik.getTitel() ) );
     titel.getStyle().set( "color", DUNKEL );
     add( titel );
 
@@ -64,7 +61,7 @@ public class SitzplanView extends VerticalLayout {
     add( raumreihe2 );
 
     Button wuerfelnButton = createButton( "Shuffle!", e -> {
-      konfigurationRepository.save( service.generiereKonfiguration( aktuelleKonfiguration ) );
+      konfigurationRepository.save( sitzplanLogik.erzeugeNeueKonfiguration() );
       UI.getCurrent().getPage().reload();
     } );
     add( wuerfelnButton );
@@ -90,29 +87,36 @@ public class SitzplanView extends VerticalLayout {
 
   private void umzugsDialogOeffnen( UmzugZuordnungHelper umzugZuordnungHelper ) {
     Dialog dialog = new Dialog();
-    Map<Integer, List<UmzugZuordnung>> umzugZuordnungen = umzugZuordnungHelper
-        .erstelleUmzugZuordnungen( aktuelleKonfiguration );
-    if ( umzugZuordnungen.isEmpty() )
-      dialog.add( createTitel( "Es gibt keine Umzugs-Reihenfolge." ) );
-    else {
-      dialog.add( createTitel( "Umzug-Reihenfolge:" ) );
-      dialog.add( new UmzugView( umzugZuordnungen ) );
+    dialog.add( createTitel( sitzplanLogik.getTitelUmzugsdialog() ) );
+    List<String> umzugZuordnungen = sitzplanLogik.getUmzugZuordnungen();
+    if ( !umzugZuordnungen.isEmpty() ) {
+      VerticalLayout umzugView = new VerticalLayout();
+      umzugZuordnungen.forEach( zuordnung -> umzugView.add( createUmzugszuordnung( zuordnung ) ) );
+      dialog.add( umzugView );
     }
     dialog.add( createButton( "Schließen", e -> dialog.close() ) );
     dialog.open();
   }
 
-  private Component getRaum( int raumnr, Fensterseite fensterseite ) {
-    boolean hatRaumKuechendienst = new Kuechenplan().hatRaumKuechendienst( raumnr );
+  private Label createUmzugszuordnung( String text ) {
+    Label label = new Label( text );
+    label.getStyle().set( "color", DUNKEL );
+    label.getStyle().set( "padding", "0px" );
+    label.getStyle().set( "margin", "0px" );
+    return label;
+  }
+
+  private Component getRaum( int raumNr, Fensterseite fensterseite ) {
+    boolean hatRaumKuechendienst = sitzplanLogik.hatRaumKuechendienst( raumNr );
     String rahmenfarbe = hatRaumKuechendienst ? Styles.DUNKEL : Styles.SCHWARZ;
-    TextField platz1 = createPlatz( raumnr * 10 + 1 );
+    TextField platz1 = createPlatz( raumNr * 10 + 1 );
     platz1.getStyle().set( "border-right", "1px solid " + rahmenfarbe );
     platz1.getStyle().set( "border-bottom", "1px solid " + rahmenfarbe );
-    TextField platz2 = createPlatz( raumnr * 10 + 2 );
+    TextField platz2 = createPlatz( raumNr * 10 + 2 );
     platz2.getStyle().set( "border-bottom", "1px solid " + rahmenfarbe );
-    TextField platz3 = createPlatz( raumnr * 10 + 3 );
+    TextField platz3 = createPlatz( raumNr * 10 + 3 );
     platz3.getStyle().set( "border-right", "1px solid " + rahmenfarbe );
-    TextField platz4 = createPlatz( raumnr * 10 + 4 );
+    TextField platz4 = createPlatz( raumNr * 10 + 4 );
 
     HorizontalLayout reihe1 = createReihe();
     reihe1.add( platz1 );
@@ -146,7 +150,7 @@ public class SitzplanView extends VerticalLayout {
 
   private TextField createPlatz( long platzId ) {
     TextField platz = new TextField();
-    platz.setValue( aktuelleKonfiguration.getKuerzelZuPlatzId( platzId ) );
+    platz.setValue( sitzplanLogik.getPlatzbezeichnung( platzId ) );
     platz.setReadOnly( true );
     platz.setWidth( "20%" );
     platz.getStyle().set( "padding", "2%" );
@@ -164,7 +168,7 @@ public class SitzplanView extends VerticalLayout {
     String bezeichnung;
   }
 
-  private final Konfiguration aktuelleKonfiguration;
+  private final SitzplanLogik sitzplanLogik;
 
   private static final long serialVersionUID = 1992137646139137487L;
 }
