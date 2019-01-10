@@ -23,8 +23,8 @@ public class RaumbelegungService {
 
   /**
    * Erzeugt eine neue Konfiguration. Die eingentliche Zufallsverteilung wird durch die VerteilungStrategie erzeugt. Es
-   * werden mehrere Zufallsverteilungen erzeugt, von denen die mit der geringsten Ähnlichkeit zur aktuellen
-   * Konfiguration durch die BewertungStragegie ausgewählt wird.
+   * werden mehrere Zufallsverteilungen erzeugt, von denen die mit der geringsten Ã„hnlichkeit zur aktuellen
+   * Konfiguration durch die BewertungStragegie ausgewÃ¤hlt wird.
    */
   public Konfiguration generiereKonfiguration( Konfiguration vorherigeKonfiguration ) {
     VerteilungStrategie verteilungStrategie = new VerteilungStrategie();
@@ -47,7 +47,7 @@ public class RaumbelegungService {
     return result;
   }
 
-  // -- private Methoden ------------------------------------------------------
+  // -- private Methoden -------------------------------------------------------
 
   // -- Getter/Setter ----------------------------------------------------------
 

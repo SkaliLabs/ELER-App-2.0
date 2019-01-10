@@ -13,10 +13,12 @@ import de.data_experts.eler.eler_app.model.Konfiguration;
 @Component
 public class SitzplanLogik {
 
-  public SitzplanLogik( RaumbelegungService service, UmzugZuordnungHelper umzugZuordnungHelper ) {
-    this.raumbelegungService = service;
-    this.umzugZuordnungHelper = umzugZuordnungHelper;
+  // -- Konstruktoren ----------------------------------------------------------
+
+  public SitzplanLogik() {
   }
+
+  // -- public Methoden --------------------------------------------------------
 
   public String getTitel() {
     return getAktuelleKonfiguration().getGueltigVonAlsString() + " - " + aktuelleKonfiguration.getGueltigBisAlsString();
@@ -48,6 +50,8 @@ public class SitzplanLogik {
     return extracted( map );
   }
 
+  // -- private Methoden -------------------------------------------------------
+
   private List<String> extracted( Map<Integer, List<UmzugZuordnung>> map ) {
     List<String> labelList = new ArrayList<>();
     for ( Integer i : map.keySet() ) {
@@ -68,11 +72,15 @@ public class SitzplanLogik {
     return labelList;
   }
 
+  // -- Getter/Setter ----------------------------------------------------------
+
   public Konfiguration getAktuelleKonfiguration() {
     if ( aktuelleKonfiguration == null )
       aktuelleKonfiguration = konfigurationRepository.findAktuelle();
     return aktuelleKonfiguration;
   }
+
+  // -- Attribute --------------------------------------------------------------
 
   @Autowired
   private RaumbelegungService raumbelegungService;
@@ -80,7 +88,9 @@ public class SitzplanLogik {
   @Autowired
   private KonfigurationRepository konfigurationRepository;
 
+  @Autowired
   private UmzugZuordnungHelper umzugZuordnungHelper;
 
+  @Autowired
   private Konfiguration aktuelleKonfiguration;
 }

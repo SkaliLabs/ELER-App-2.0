@@ -16,7 +16,7 @@ public class Platzzuordnung implements Comparable<Platzzuordnung> {
   // -- Konstruktoren ----------------------------------------------------------
 
   /**
-   * Für JPA
+   * FÃ¼r JPA
    */
   public Platzzuordnung() {
   }

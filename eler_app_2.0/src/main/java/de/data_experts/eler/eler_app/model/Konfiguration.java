@@ -18,7 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 /**
- * Eine Konfiguration repräsentiert die Platzzuordnungen, die für einen bestimmten Zeitraum gelten sollen.
+ * Eine Konfiguration reprÃ¤sentiert die Platzzuordnungen, die fÃ¼r einen bestimmten Zeitraum gelten sollen.
  */
 @Entity
 public class Konfiguration {
@@ -26,7 +26,7 @@ public class Konfiguration {
   // -- Konstruktoren ----------------------------------------------------------
 
   /**
-   * Für JPA
+   * FÃ¼r JPA
    */
   protected Konfiguration() {
   }

@@ -10,7 +10,7 @@ import de.data_experts.eler.eler_app.model.Platzzuordnung;
 import de.data_experts.eler.eler_app.model.Raum;
 
 /**
- * Erzeugt die T�rschilder zu einer Konfiguration in Form eines HTML-Strings.
+ * Erzeugt die Türschilder zu einer Konfiguration in Form eines HTML-Strings.
  */
 public class TuerschildErzeugungsStrategie {
 

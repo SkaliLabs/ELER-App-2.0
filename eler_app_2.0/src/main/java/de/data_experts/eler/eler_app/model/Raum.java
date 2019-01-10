@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 /**
- * Ein Raum dient als "Behälter" für Plätze.
+ * Ein Raum dient als "BehÃ¤lter" fÃ¼r PlÃ¤tze.
  */
 @Entity
 public class Raum {
@@ -18,7 +18,7 @@ public class Raum {
   // -- Konstruktoren ----------------------------------------------------------
 
   /**
-   * Für JPA
+   * FÃ¼r JPA
    */
   protected Raum() {
   }

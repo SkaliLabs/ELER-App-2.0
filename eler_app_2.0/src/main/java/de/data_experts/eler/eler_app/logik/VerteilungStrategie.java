@@ -73,7 +73,7 @@ public class VerteilungStrategie {
 
       // Raum mit nur einem Mitarbeiter auffüllen oder leeren?
       if ( kannAufgefuelltWerden( mitarbeiterJeRaum ) ) {
-        // Raum auff�llen
+        // Raum auffüllen
         Platz platz = getFreienPlatzAusRaum( getUnterbesetztenRaum( mitarbeiterJeRaum ), belegbarePlaetze );
         Platzzuordnung zuordnung = getPlatzzuordnungAusRaum( getRaumMitHoherBelegung( mitarbeiterJeRaum ),
             zuordnungen );

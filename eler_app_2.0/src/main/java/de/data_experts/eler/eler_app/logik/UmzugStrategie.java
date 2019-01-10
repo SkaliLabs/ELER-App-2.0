@@ -37,7 +37,7 @@ public class UmzugStrategie {
       UmzugZuordnung elementRueckwaerts = umzugZuordnungen.get( 0 );
       zuordnungen.add( elementVorwaerts );
 
-      // vorwärts gehen
+      // vorwÃ¤rts gehen
       long neuerPlatz = elementVorwaerts.getNeuerPlatzId();
       long alterPlatz = -1;
       while ( alterPlatz != neuerPlatz ) {
@@ -46,12 +46,12 @@ public class UmzugStrategie {
           break;
 
         if ( !zuordnungen.contains( u ) )
-          zuordnungen.add( u ); // Mitarbeiter in Liste einfügen
+          zuordnungen.add( u ); // Mitarbeiter in Liste einfÃ¼gen
         elementVorwaerts = u;
         alterPlatz = u.getAlterPlatzId();
       }
 
-      // rückwärts gehen
+      // rÃ¼ckwÃ¤rts gehen
       neuerPlatz = elementRueckwaerts.getNeuerPlatzId();
       alterPlatz = -1;
       while ( alterPlatz != neuerPlatz ) {
@@ -60,7 +60,7 @@ public class UmzugStrategie {
           break;
 
         if ( !zuordnungen.contains( u ) )
-          zuordnungen.add( 0, u ); // Mitarbeiter an erste Stelle der Liste einfügen
+          zuordnungen.add( 0, u ); // Mitarbeiter an erste Stelle der Liste einfÃ¼gen
         elementRueckwaerts = u;
         alterPlatz = u.getNeuerPlatzId();
       }
@@ -81,7 +81,7 @@ public class UmzugStrategie {
   }
 
   /**
-   * Holt Zuordnung die den gegebenen Alten Platz als Neuen platz besitzt
+   * Holt Zuordnung die den gegebenen alten Platz als neuen Platz besitzt
    */
   private UmzugZuordnung getZuordnungMitNeuemPlatz( List<UmzugZuordnung> umzugZuordnungen, long platznummer ) {
     for ( UmzugZuordnung z : umzugZuordnungen )

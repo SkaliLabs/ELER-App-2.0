@@ -3,7 +3,7 @@ package de.data_experts.eler.eler_app.logik;
 import de.data_experts.eler.eler_app.model.Mitarbeiter;
 
 /**
- * Die Klasse UmzugZuordnung repr‰sentiert einen Mitarbeiter mit seinem Sitzplatz in der aktuellen, sowie vorrangehenden
+ * Die Klasse UmzugZuordnung repr√§sentiert einen Mitarbeiter mit seinem Sitzplatz in der aktuellen, sowie vorrangehenden
  * Konfiguration.
  */
 public class UmzugZuordnung {

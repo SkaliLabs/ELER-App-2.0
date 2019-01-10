@@ -7,7 +7,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
- * Die Klasse Platz repräsentiert einen Arbeitsplatz eines Mitarbeiters.
+ * Die Klasse Platz reprÃ¤sentiert einen Arbeitsplatz eines Mitarbeiters.
  */
 @Entity
 public class Platz {
@@ -15,7 +15,7 @@ public class Platz {
   // -- Konstruktoren ----------------------------------------------------------
 
   /**
-   * Für JPA
+   * FÃ¼r JPA
    */
   protected Platz() {
   }

@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 /**
- * Die Klasse Mitarbeiter repräsentiert einen einzelnen Mitarbeiter, der einem Arbeitsplatz in einem Raum zugewiesen
+ * Die Klasse Mitarbeiter reprÃ¤sentiert einen einzelnen Mitarbeiter, der einem Arbeitsplatz in einem Raum zugewiesen
  * wird.
  */
 @Entity
@@ -14,7 +14,7 @@ public class Mitarbeiter {
   // -- Konstruktoren ----------------------------------------------------------
 
   /**
-   * Für JPA
+   * FÃ¼r JPA
    */
   protected Mitarbeiter() {
   }

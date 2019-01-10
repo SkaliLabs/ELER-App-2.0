@@ -12,7 +12,7 @@ import de.data_experts.eler.eler_app.model.Platzzuordnung;
 import de.data_experts.eler.eler_app.model.Raum;
 
 /**
- * Aufgabe der BewertungStrategie ist es den Algorithmus zur Bestimmung der Ähnlichkeit von Konfigurationen zu kapseln.
+ * Aufgabe der BewertungStrategie ist es den Algorithmus zur Bestimmung der Ã„hnlichkeit von Konfigurationen zu kapseln.
  */
 public class BewertungStrategie {
 
@@ -63,8 +63,8 @@ public class BewertungStrategie {
   }
 
   /*
-   * Es werden die Mitarbeiter ermittelt und als Menge zurückgegeben, die durch die übergebene Liste der
-   * Platzzuordnungen Büroplätzen zugeordnet wurden.
+   * Es werden die Mitarbeiter ermittelt und als Menge zurÃ¼ckgegeben, die durch die Ã¼bergebene Liste der
+   * Platzzuordnungen BÃ¼roplÃ¤tzen zugeordnet wurden.
    */
   private Set<Mitarbeiter> ermittleMitarbeiterAusPlatzzuordnungen( List<Platzzuordnung> zuordnungen ) {
     Set<Mitarbeiter> result = new HashSet<>();
