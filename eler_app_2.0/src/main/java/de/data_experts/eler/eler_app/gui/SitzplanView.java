@@ -34,18 +34,14 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
-import de.data_experts.eler.eler_app.db.KonfigurationRepository;
-import de.data_experts.eler.eler_app.logik.RaumbelegungService;
 import de.data_experts.eler.eler_app.logik.SitzplanLogik;
-import de.data_experts.eler.eler_app.logik.UmzugZuordnungHelper;
 
 @PageTitle( "Sitzplan" )
 @Route( value = "", layout = MainView.class )
 public class SitzplanView extends VerticalLayout {
 
-  public SitzplanView( KonfigurationRepository konfigurationRepository, RaumbelegungService service,
-      UmzugZuordnungHelper umzugZuordnungHelper ) {
-    sitzplanLogik = new SitzplanLogik( konfigurationRepository, service, umzugZuordnungHelper );
+  public SitzplanView( SitzplanLogik sitzplanLogik ) {
+    this.sitzplanLogik = sitzplanLogik;
 
     H3 titel = new H3( createTitel( sitzplanLogik.getTitel() ) );
     titel.getStyle().set( "color", DUNKEL );
@@ -61,12 +57,12 @@ public class SitzplanView extends VerticalLayout {
     add( raumreihe2 );
 
     Button wuerfelnButton = createButton( "Shuffle!", e -> {
-      konfigurationRepository.save( sitzplanLogik.erzeugeNeueKonfiguration() );
+      sitzplanLogik.erzeugeNeueKonfiguration();
       UI.getCurrent().getPage().reload();
     } );
     add( wuerfelnButton );
 
-    Button umzugButton = createButton( "Umzugsplan anzeigen!", e -> umzugsDialogOeffnen( umzugZuordnungHelper ) );
+    Button umzugButton = createButton( "Umzugsplan anzeigen!", e -> umzugsDialogOeffnen() );
     add( umzugButton );
   }
 
@@ -85,7 +81,7 @@ public class SitzplanView extends VerticalLayout {
     return wuerfelnButton;
   }
 
-  private void umzugsDialogOeffnen( UmzugZuordnungHelper umzugZuordnungHelper ) {
+  private void umzugsDialogOeffnen() {
     Dialog dialog = new Dialog();
     dialog.add( createTitel( sitzplanLogik.getTitelUmzugsdialog() ) );
     List<String> umzugZuordnungen = sitzplanLogik.getUmzugZuordnungen();

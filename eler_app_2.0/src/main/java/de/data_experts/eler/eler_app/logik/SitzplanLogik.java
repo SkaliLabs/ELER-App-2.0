@@ -4,44 +4,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import de.data_experts.eler.eler_app.db.KonfigurationRepository;
 import de.data_experts.eler.eler_app.model.Konfiguration;
 
+@Component
 public class SitzplanLogik {
 
-  public SitzplanLogik( KonfigurationRepository konfigurationRepository, RaumbelegungService service,
-      UmzugZuordnungHelper umzugZuordnungHelper ) {
+  public SitzplanLogik( RaumbelegungService service, UmzugZuordnungHelper umzugZuordnungHelper ) {
     this.raumbelegungService = service;
     this.umzugZuordnungHelper = umzugZuordnungHelper;
-    this.aktuelleKonfiguration = konfigurationRepository.findAktuelle();
   }
 
   public String getTitel() {
-    return aktuelleKonfiguration.getGueltigVonAlsString() + " - " + aktuelleKonfiguration.getGueltigBisAlsString();
+    return getAktuelleKonfiguration().getGueltigVonAlsString() + " - " + aktuelleKonfiguration.getGueltigBisAlsString();
   }
 
   public String getTitelUmzugsdialog() {
     Map<Integer, List<UmzugZuordnung>> umzugZuordnungen = umzugZuordnungHelper
-        .erstelleUmzugZuordnungen( aktuelleKonfiguration );
+        .erstelleUmzugZuordnungen( getAktuelleKonfiguration() );
     if ( umzugZuordnungen.isEmpty() )
       return "Es gibt keine Umzugs-Reihenfolge.";
     return "Umzug-Reihenfolge:";
   }
 
   public String getPlatzbezeichnung( long platzId ) {
-    return aktuelleKonfiguration.getKuerzelZuPlatzId( platzId );
+    return getAktuelleKonfiguration().getKuerzelZuPlatzId( platzId );
   }
 
   public boolean hatRaumKuechendienst( int raumNr ) {
     return new Kuechenplan().hatRaumKuechendienst( raumNr );
   }
 
-  public Konfiguration erzeugeNeueKonfiguration() {
-    return raumbelegungService.generiereKonfiguration( aktuelleKonfiguration );
+  public void erzeugeNeueKonfiguration() {
+    konfigurationRepository.save( raumbelegungService.generiereKonfiguration( getAktuelleKonfiguration() ) );
   }
 
   public List<String> getUmzugZuordnungen() {
-    Map<Integer, List<UmzugZuordnung>> map = umzugZuordnungHelper.erstelleUmzugZuordnungen( aktuelleKonfiguration );
+    Map<Integer, List<UmzugZuordnung>> map = umzugZuordnungHelper
+        .erstelleUmzugZuordnungen( getAktuelleKonfiguration() );
     return extracted( map );
   }
 
@@ -65,7 +68,17 @@ public class SitzplanLogik {
     return labelList;
   }
 
+  public Konfiguration getAktuelleKonfiguration() {
+    if ( aktuelleKonfiguration == null )
+      aktuelleKonfiguration = konfigurationRepository.findAktuelle();
+    return aktuelleKonfiguration;
+  }
+
+  @Autowired
   private RaumbelegungService raumbelegungService;
+
+  @Autowired
+  private KonfigurationRepository konfigurationRepository;
 
   private UmzugZuordnungHelper umzugZuordnungHelper;
 
