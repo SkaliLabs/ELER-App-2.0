@@ -60,6 +60,7 @@ public class SitzplanView extends VerticalLayout {
       sitzplanLogik.erzeugeNeueKonfiguration();
       UI.getCurrent().getPage().reload();
     } );
+    wuerfelnButton.setEnabled( sitzplanLogik.isKonfigurationAbgelaufen() );
     add( wuerfelnButton );
 
     Button umzugButton = createButton( "Umzugsplan anzeigen!", e -> umzugsDialogOeffnen() );

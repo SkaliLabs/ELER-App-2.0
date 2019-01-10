@@ -1,5 +1,6 @@
 package de.data_experts.eler.eler_app.logik;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +51,10 @@ public class SitzplanLogik {
     return extracted( map );
   }
 
+  public boolean isKonfigurationAbgelaufen() {
+    return getAktuelleKonfiguration().getGueltigBis().isBefore( LocalDateTime.now() );
+  }
+
   // -- private Methoden -------------------------------------------------------
 
   private List<String> extracted( Map<Integer, List<UmzugZuordnung>> map ) {
@@ -92,4 +97,5 @@ public class SitzplanLogik {
   private UmzugZuordnungHelper umzugZuordnungHelper;
 
   private Konfiguration aktuelleKonfiguration;
+
 }
