@@ -1,13 +1,10 @@
 package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
-import static de.data_experts.eler.eler_app.gui.Styles.HELL;
-import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -29,11 +26,6 @@ public class PlatzView extends VerticalLayout {
     allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 121 ) );
     allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 125 ) );
     allePlaetze.addAll( addPlaetzeGrid( platzRepo, raumRepo, 126 ) );
-
-    Button button = new Button( "Speichern!", e -> platzRepo.saveAll( allePlaetze ) );
-    button.getStyle().set( "color", MITTEL );
-    button.getStyle().set( "background-color", HELL );
-    add( button );
   }
 
   private List<Platz> addPlaetzeGrid( PlatzRepository platzRepo, RaumRepository raumRepo, Integer raumNr ) {
@@ -51,7 +43,7 @@ public class PlatzView extends VerticalLayout {
         .withProperty( "checked", platz -> platz.isAktiv() ? "checked" : "" )
         .withEventHandler( "handleChange", platz -> {
           platz.setAktiv( !platz.isAktiv() );
-          System.out.println( "Status für Platz " + platz.getId() + " geändert auf " + platz.isAktiv() );
+          platzRepo.save( platz );
         } ) )
         .setHeader( "Status" );
     grid.addColumn( Platz::getBezeichnung ).setHeader( "Bezeichnung" );

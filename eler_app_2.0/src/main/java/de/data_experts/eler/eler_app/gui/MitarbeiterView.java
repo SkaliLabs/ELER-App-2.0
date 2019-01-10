@@ -15,12 +15,9 @@
 package de.data_experts.eler.eler_app.gui;
 
 import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
-import static de.data_experts.eler.eler_app.gui.Styles.HELL;
-import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.List;
 
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.renderer.TemplateRenderer;
@@ -46,7 +43,7 @@ public class MitarbeiterView extends VerticalLayout {
         .withProperty( "checked", mitarbeiter -> mitarbeiter.isAktiv() ? "checked" : "" )
         .withEventHandler( "handleChange", mitarbeiter -> {
           mitarbeiter.setAktiv( !mitarbeiter.isAktiv() );
-          System.out.println( "Status für " + mitarbeiter.getKuerzel() + " geändert auf " + mitarbeiter.isAktiv() );
+          repo.save( mitarbeiter );
         } ) )
         .setHeader( "Status" );
     grid.addColumn( Mitarbeiter::getName ).setHeader( "Name" );
@@ -54,11 +51,6 @@ public class MitarbeiterView extends VerticalLayout {
     grid.getStyle().set( "color", DUNKEL );
     grid.setWidth( "75%" );
     add( grid );
-
-    Button button = new Button( "Speichern!", e -> repo.saveAll( alleMitarbeiter ) );
-    button.getStyle().set( "color", MITTEL );
-    button.getStyle().set( "background-color", HELL );
-    add( button );
   }
 
   private static final long serialVersionUID = -2081451884485555973L;
