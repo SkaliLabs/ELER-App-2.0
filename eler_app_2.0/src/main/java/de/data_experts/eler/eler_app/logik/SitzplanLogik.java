@@ -91,6 +91,5 @@ public class SitzplanLogik {
   @Autowired
   private UmzugZuordnungHelper umzugZuordnungHelper;
 
-  @Autowired
   private Konfiguration aktuelleKonfiguration;
 }
