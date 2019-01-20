@@ -56,14 +56,15 @@ public class SitzplanView extends VerticalLayout {
     raumreihe2.add( getRaum( 126, Fensterseite.LINKS ) );
     add( raumreihe2 );
 
-    Button wuerfelnButton = createButton( "Shuffle!", e -> {
+    boolean isKonfigurationAbgelaufen = sitzplanLogik.isKonfigurationAbgelaufen();
+    Button wuerfelnButton = createButton( "Shuffle!", isKonfigurationAbgelaufen, e -> {
       sitzplanLogik.erzeugeNeueKonfiguration();
       UI.getCurrent().getPage().reload();
     } );
-    wuerfelnButton.setEnabled( sitzplanLogik.isKonfigurationAbgelaufen() );
+    wuerfelnButton.setEnabled( isKonfigurationAbgelaufen );
     add( wuerfelnButton );
 
-    Button umzugButton = createButton( "Umzugsplan anzeigen!", e -> umzugsDialogOeffnen() );
+    Button umzugButton = createButton( "Umzugsplan anzeigen!", true, e -> umzugsDialogOeffnen() );
     add( umzugButton );
   }
 
@@ -75,10 +76,17 @@ public class SitzplanView extends VerticalLayout {
     return titel;
   }
 
-  private Button createButton( String titel, ComponentEventListener<ClickEvent<Button>> clickListener ) {
+  private Button createButton( String titel, boolean isButtonAktiv,
+      ComponentEventListener<ClickEvent<Button>> clickListener ) {
     Button wuerfelnButton = new Button( titel, clickListener );
-    wuerfelnButton.getStyle().set( "color", MITTEL );
-    wuerfelnButton.getStyle().set( "background-color", HELL );
+    if ( isButtonAktiv ) {
+      wuerfelnButton.getStyle().set( "color", HELL );
+      wuerfelnButton.getStyle().set( "background-color", DUNKEL );
+    }
+    else {
+      wuerfelnButton.getStyle().set( "color", MITTEL );
+      wuerfelnButton.getStyle().set( "background-color", HELL );
+    }
     return wuerfelnButton;
   }
 
@@ -91,7 +99,7 @@ public class SitzplanView extends VerticalLayout {
       umzugZuordnungen.forEach( zuordnung -> umzugView.add( createUmzugszuordnung( zuordnung ) ) );
       dialog.add( umzugView );
     }
-    dialog.add( createButton( "Schließen", e -> dialog.close() ) );
+    dialog.add( createButton( "Schließen", true, e -> dialog.close() ) );
     dialog.open();
   }
 
