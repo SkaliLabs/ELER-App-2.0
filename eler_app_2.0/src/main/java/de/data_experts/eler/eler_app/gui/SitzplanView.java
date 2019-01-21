@@ -81,7 +81,7 @@ public class SitzplanView extends VerticalLayout {
     Button wuerfelnButton = new Button( titel, clickListener );
     if ( isButtonAktiv ) {
       wuerfelnButton.getStyle().set( "color", HELL );
-      wuerfelnButton.getStyle().set( "background-color", DUNKEL );
+      wuerfelnButton.getStyle().set( "background-color", MITTEL );
     }
     else {
       wuerfelnButton.getStyle().set( "color", MITTEL );
