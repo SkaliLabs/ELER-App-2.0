@@ -33,21 +33,10 @@ public class TuerschildErzeugungsStrategie {
         position++;
       }
     }
-    result = ersetzeUmlaute( result );
     return result;
   }
 
   // -- private Methoden -------------------------------------------------------
-
-  private String ersetzeUmlaute( String mitUmlauten ) {
-    String ohneUmlaute = mitUmlauten.replace( "�", "&Ouml;" );
-    ohneUmlaute = ohneUmlaute.replace( "�", "&Uuml;" );
-    ohneUmlaute = ohneUmlaute.replace( "�", "&Auml;" );
-    ohneUmlaute = ohneUmlaute.replace( "�", "&ouml;" );
-    ohneUmlaute = ohneUmlaute.replace( "�", "&uuml;" );
-    ohneUmlaute = ohneUmlaute.replace( "�", "&auml;" );
-    return ohneUmlaute;
-  }
 
   // -- Getter/Setter ----------------------------------------------------------
 
