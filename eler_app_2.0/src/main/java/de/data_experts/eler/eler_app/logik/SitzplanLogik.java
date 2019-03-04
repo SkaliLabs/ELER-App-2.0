@@ -22,7 +22,7 @@ public class SitzplanLogik {
   // -- public Methoden --------------------------------------------------------
 
   public String getTitel() {
-    return getAktuelleKonfiguration().getGueltigVonAlsString() + " - " + aktuelleKonfiguration.getGueltigBisAlsString();
+    return getAktuelleKonfiguration().getGueltigVonAlsString() + " - " + getAktuelleKonfiguration().getGueltigBisAlsString();
   }
 
   public String getTitelUmzugsdialog() {
@@ -43,6 +43,7 @@ public class SitzplanLogik {
 
   public void erzeugeNeueKonfiguration() {
     konfigurationRepository.save( raumbelegungService.generiereKonfiguration( getAktuelleKonfiguration() ) );
+    aktuelleKonfiguration = null;
   }
 
   public List<String> getUmzugZuordnungen() {
