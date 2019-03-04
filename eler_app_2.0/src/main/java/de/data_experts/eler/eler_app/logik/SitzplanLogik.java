@@ -43,7 +43,6 @@ public class SitzplanLogik {
 
   public void erzeugeNeueKonfiguration() {
     konfigurationRepository.save( raumbelegungService.generiereKonfiguration( getAktuelleKonfiguration() ) );
-    aktuelleKonfiguration = null;
   }
 
   public List<String> getUmzugZuordnungen() {
@@ -81,9 +80,7 @@ public class SitzplanLogik {
   // -- Getter/Setter ----------------------------------------------------------
 
   public Konfiguration getAktuelleKonfiguration() {
-    if ( aktuelleKonfiguration == null )
-      aktuelleKonfiguration = konfigurationRepository.findAktuelle();
-    return aktuelleKonfiguration;
+      return konfigurationRepository.findAktuelle();
   }
 
   // -- Attribute --------------------------------------------------------------
@@ -96,7 +93,4 @@ public class SitzplanLogik {
 
   @Autowired
   private UmzugZuordnungHelper umzugZuordnungHelper;
-
-  private Konfiguration aktuelleKonfiguration;
-
 }
