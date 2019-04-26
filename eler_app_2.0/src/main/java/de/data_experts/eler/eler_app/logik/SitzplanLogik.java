@@ -22,7 +22,7 @@ public class SitzplanLogik {
   // -- public Methoden --------------------------------------------------------
 
   public String getTitel() {
-    return getAktuelleKonfiguration().getGueltigVonAlsString() + " - " + aktuelleKonfiguration.getGueltigBisAlsString();
+    return getAktuelleKonfiguration().getGueltigVonAlsString() + " - " + getAktuelleKonfiguration().getGueltigBisAlsString();
   }
 
   public String getTitelUmzugsdialog() {
@@ -80,9 +80,7 @@ public class SitzplanLogik {
   // -- Getter/Setter ----------------------------------------------------------
 
   public Konfiguration getAktuelleKonfiguration() {
-    if ( aktuelleKonfiguration == null )
-      aktuelleKonfiguration = konfigurationRepository.findAktuelle();
-    return aktuelleKonfiguration;
+      return konfigurationRepository.findAktuelle();
   }
 
   // -- Attribute --------------------------------------------------------------
@@ -95,7 +93,4 @@ public class SitzplanLogik {
 
   @Autowired
   private UmzugZuordnungHelper umzugZuordnungHelper;
-
-  private Konfiguration aktuelleKonfiguration;
-
 }
