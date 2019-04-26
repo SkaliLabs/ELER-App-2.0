@@ -28,6 +28,7 @@ public class MainView extends Div implements RouterLayout {
     navigation.add( createRouterLink( "Sitzplan", SitzplanView.class ) );
     navigation.add( createRouterLink( "Mitarbeiter", MitarbeiterView.class ) );
     navigation.add( createRouterLink( "Plätze", PlatzView.class ) );
+    navigation.add( createRouterLink( "Regeln", RegelView.class ) );
     navigation.add( createAnchor() );
     navigation.getStyle().set( "background-color", MITTEL );
     navigation.getStyle().set( "text-align", "center" );
