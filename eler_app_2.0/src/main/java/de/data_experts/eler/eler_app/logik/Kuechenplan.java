@@ -10,16 +10,13 @@ public class Kuechenplan {
   }
 
   boolean hatRaumKuechendienst( int raumnr, int kalenderwoche ) {
-    int rest = kalenderwoche % 9;
+    int rest = kalenderwoche % 6;
     switch ( rest ) {
       case 1:
-      case 5:
         return raumnr == 121;
-      case 2:
-      case 7:
+      case 3:
         return raumnr == 125;
-      case 4:
-      case 8:
+      case 5:
         return raumnr == 126;
       default:
         return false;

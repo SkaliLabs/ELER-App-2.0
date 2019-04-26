@@ -36,8 +36,8 @@ public class Konfiguration {
   }
 
   public Konfiguration( List<Platzzuordnung> platzzuordnungen, Konfiguration vorgaengerKonfig ) {
-    this.gueltigVon = LocalDateTime.now();
-    this.gueltigBis = LocalDateTime.now().plusMonths( 2 ).minusDays( 1 );
+    this.gueltigVon = vorgaengerKonfig.getGueltigBis().plusDays( 1 );
+    this.gueltigBis = gueltigVon.plusMonths( 2 ).minusDays( 1 );
     this.platzzuordnungen = platzzuordnungen;
     this.vorgaengerKonfId = vorgaengerKonfig == null ? null : vorgaengerKonfig.getId();
   }
