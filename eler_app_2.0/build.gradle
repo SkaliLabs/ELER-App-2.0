@@ -1,12 +1,9 @@
-buildscript {
-  ext { springBootVersion = '2.1.1.RELEASE' }
-  repositories { mavenCentral() }
-  dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") }
+plugins {
+	id 'org.springframework.boot' version '2.1.1.RELEASE'
+	id 'java'
+	id 'com.palantir.docker' version '0.21.0'
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'de.data_experts.eler'
@@ -18,7 +15,9 @@ compileJava.options.encoding = 'UTF-8'
 
 repositories { mavenCentral() }
 
-ext['vaadinVersion'] = '11.0.3'
+ext {
+	set('vaadinVersion', "13.0.8")
+}
 
 dependencies {
   implementation('org.springframework.boot:spring-boot-starter-data-jpa')
@@ -37,4 +36,14 @@ dependencyManagement {
 	imports {
 		mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
 	}
+}
+
+ext.dockerRegistry = 'nexus.profil.data-experts.net:8445'
+docker {
+    dependsOn build
+    name "${dockerRegistry}/eler/${bootJar.baseName}"
+    tags "${project.version}", "latest"
+    files bootJar.archivePath
+    buildArgs(['JAR_FILE': "${bootJar.archiveName}"])
+    pull true
 }
