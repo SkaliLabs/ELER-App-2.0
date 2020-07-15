@@ -24,6 +24,7 @@ dependencies {
   implementation('org.springframework.boot:spring-boot-starter-web')
   implementation('com.vaadin:vaadin-spring-boot-starter')
   runtimeOnly('com.h2database:h2')
+  compile ('org.springframework.boot:spring-boot-starter-mail')
   compile("com.vaadin:vaadin-spring-boot-starter")
   testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

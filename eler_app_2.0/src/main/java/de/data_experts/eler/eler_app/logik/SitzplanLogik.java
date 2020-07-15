@@ -41,8 +41,8 @@ public class SitzplanLogik {
     return new Kuechenplan().hatRaumKuechendienst( raumNr );
   }
 
-  public void erzeugeNeueKonfiguration() {
-    konfigurationRepository.save( raumbelegungService.generiereKonfiguration( getAktuelleKonfiguration() ) );
+  public Konfiguration erzeugeNeueKonfiguration() {
+    return konfigurationRepository.save( raumbelegungService.generiereKonfiguration( getAktuelleKonfiguration() ) );
   }
 
   public List<String> getUmzugZuordnungen() {

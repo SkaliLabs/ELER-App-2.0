@@ -35,12 +35,14 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import de.data_experts.eler.eler_app.logik.SitzplanLogik;
+import de.data_experts.eler.eler_app.mail.EmailService;
+import de.data_experts.eler.eler_app.model.Konfiguration;
 
 @PageTitle( "Sitzplan" )
 @Route( value = "", layout = MainView.class )
 public class SitzplanView extends VerticalLayout {
 
-  public SitzplanView( SitzplanLogik sitzplanLogik ) {
+  public SitzplanView( SitzplanLogik sitzplanLogik, EmailService emailService ) {
     this.sitzplanLogik = sitzplanLogik;
 
     H3 titel = new H3( createTitel( sitzplanLogik.getTitel() ) );
@@ -58,7 +60,8 @@ public class SitzplanView extends VerticalLayout {
 
     boolean isKonfigurationAbgelaufen = sitzplanLogik.isKonfigurationAbgelaufen();
     Button wuerfelnButton = createButton( "Shuffle!", isKonfigurationAbgelaufen, e -> {
-      sitzplanLogik.erzeugeNeueKonfiguration();
+      Konfiguration neueKonfiguration = sitzplanLogik.erzeugeNeueKonfiguration();
+      emailService.sendeMailMitKonfiguration( neueKonfiguration );
       UI.getCurrent().getPage().reload();
     } );
     wuerfelnButton.setEnabled( isKonfigurationAbgelaufen );
