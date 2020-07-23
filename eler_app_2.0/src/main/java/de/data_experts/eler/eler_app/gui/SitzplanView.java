@@ -20,6 +20,8 @@ import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -59,16 +61,34 @@ public class SitzplanView extends VerticalLayout {
     add( raumreihe2 );
 
     boolean isKonfigurationAbgelaufen = sitzplanLogik.isKonfigurationAbgelaufen();
-    Button wuerfelnButton = createButton( "Shuffle!", isKonfigurationAbgelaufen, e -> {
-      Konfiguration neueKonfiguration = sitzplanLogik.erzeugeNeueKonfiguration();
-      emailService.sendeMailMitKonfiguration( neueKonfiguration );
-      UI.getCurrent().getPage().reload();
-    } );
+    Button wuerfelnButton = createButton( "Shuffle!", isKonfigurationAbgelaufen, e -> createSicherheitsabfrageDialog( sitzplanLogik, emailService ) );
     wuerfelnButton.setEnabled( isKonfigurationAbgelaufen );
     add( wuerfelnButton );
 
     Button umzugButton = createButton( "Umzugsplan anzeigen!", true, e -> umzugsDialogOeffnen() );
     add( umzugButton );
+  }
+
+  private void createSicherheitsabfrageDialog( SitzplanLogik sitzplanLogik, EmailService emailService ) {
+    Dialog dialog = new Dialog();
+    VerticalLayout layout = new VerticalLayout();
+    layout.add( createTitel( "Sicherheitsabfrage" ) );
+    TextField passwortfeld = new TextField( "Passwort:" );
+    passwortfeld.setErrorMessage( "Falsches Passwort!" );
+    passwortfeld.getElement().getStyle().set( "color", DUNKEL );
+    layout.add( passwortfeld );
+    layout.add( createButton( "Bestätigen", true, e -> {
+      if ( passwortfeld.getValue().equals( passwortWuerfeln ) ) {
+        Konfiguration neueKonfiguration = sitzplanLogik.erzeugeNeueKonfiguration();
+        emailService.sendeMailMitKonfiguration( neueKonfiguration );
+        UI.getCurrent().getPage().reload();
+      }
+      else {
+        passwortfeld.setInvalid( true );
+      }
+    } ) );
+    dialog.add( layout );
+    dialog.open();
   }
 
   private H3 createTitel( String text ) {
@@ -99,14 +119,14 @@ public class SitzplanView extends VerticalLayout {
     List<String> umzugZuordnungen = sitzplanLogik.getUmzugZuordnungen();
     if ( !umzugZuordnungen.isEmpty() ) {
       VerticalLayout umzugView = new VerticalLayout();
-      umzugZuordnungen.forEach( zuordnung -> umzugView.add( createUmzugszuordnung( zuordnung ) ) );
+      umzugZuordnungen.forEach( zuordnung -> umzugView.add( createLabel( zuordnung ) ) );
       dialog.add( umzugView );
     }
     dialog.add( createButton( "Schließen", true, e -> dialog.close() ) );
     dialog.open();
   }
 
-  private Label createUmzugszuordnung( String text ) {
+  private Label createLabel( String text ) {
     Label label = new Label( text );
     label.getStyle().set( "color", DUNKEL );
     label.getStyle().set( "padding", "0px" );
@@ -177,6 +197,9 @@ public class SitzplanView extends VerticalLayout {
   }
 
   private final SitzplanLogik sitzplanLogik;
+
+  @Value( "${passwort.wuerfeln}" )
+  private String passwortWuerfeln;
 
   private static final long serialVersionUID = 1992137646139137487L;
 }
