@@ -7,7 +7,7 @@
 
 #2. Ausbaustufe
 * *Mail mit Liste an Sekretariat*
-* **neue Konfiguration mittels Passwort erstellen**
+* *neue Konfiguration mittels Passwort erstellen*
 * **Kollegen verwalten**
 * **Erinnerung Küchendient**
 * **Mehr Vorgängerkonfigurationen beachten**
