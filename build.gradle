@@ -39,7 +39,7 @@ dependencyManagement {
 	}
 }
 
-ext.dockerRegistry = 'nexus.profil.data-experts.net:8445'
+ext.dockerRegistry = 'nexus-nb.data-experts.net:8445'
 docker {
     dependsOn build
     name "${dockerRegistry}/eler/${bootJar.baseName}"
