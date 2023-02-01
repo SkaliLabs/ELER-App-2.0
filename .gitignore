@@ -25,4 +25,4 @@
 /nbdist/
 /.nb-gradle/
 /eler_app_db*
-logfile.log
+logfile.log*

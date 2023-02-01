@@ -16,7 +16,7 @@ public class UmzugStrategie {
 
   public Map<Integer, List<UmzugZuordnung>> erstelleUmzug( List<UmzugZuordnung> umzugZuordnungen ) {
     Map<Integer, List<UmzugZuordnung>> map = new HashMap<>();
-    Integer zyklus = 1;
+    int zyklus = 1;
 
     while ( !umzugZuordnungen.isEmpty() ) {
       List<UmzugZuordnung> zuordnungen = findeZyklus( umzugZuordnungen );

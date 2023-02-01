@@ -2,6 +2,7 @@ package de.data_experts.eler.eler_app.logik;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import de.data_experts.eler.eler_app.model.Konfiguration;
@@ -12,7 +13,7 @@ import de.data_experts.eler.eler_app.model.Raum;
 /**
  * Erzeugt die Türschilder zu einer Konfiguration in Form eines HTML-Strings.
  */
-public class TuerschildErzeugungsStrategie {
+public class TuerschildErzeugungStrategie {
 
   // -- Konstruktoren ----------------------------------------------------------
 
@@ -23,7 +24,7 @@ public class TuerschildErzeugungsStrategie {
     Map<Raum, List<Platzzuordnung>> platzzuordnungenJeRaum = konfiguration.getPlatzzuordnungenJeRaum();
     for ( Raum raum : platzzuordnungenJeRaum.keySet() ) {
       List<Mitarbeiter> mitarbeiterImRaum = platzzuordnungenJeRaum.get( raum ).stream()
-          .map( zuordnung -> zuordnung.getMitarbeiter() ).filter( mitarbeiter -> mitarbeiter != null )
+          .map(Platzzuordnung::getMitarbeiter).filter(Objects::nonNull)
           .collect( Collectors.toList() );
       long position = raum.getRaumNr() * 10 + 1;
       for ( Mitarbeiter mitarbeiter : mitarbeiterImRaum ) {
@@ -42,7 +43,7 @@ public class TuerschildErzeugungsStrategie {
 
   // -- Attribute --------------------------------------------------------------
 
-  private String vorlage = "<html><head><meta charset=\"utf-8\"/><title>Türschilder</title></head><body>\r\n"
+  private final String vorlage = "<html><head><meta charset=\"utf-8\"/><title>Türschilder</title></head><body>\r\n"
       + "<table border=3 bordercolor=black style=\"width:14.5cm; height:14.5cm; font-family:PT Sans; background-position:center\""
       + "rules=none\r\n background=\"raumbilder/Wald.png\">\r\n" +
       "<tr style=\"height:3cm\"><td colspan=2 align=center style=\"font-size:80\"><b><u>1.26</u></b></td></tr>\r\n" +

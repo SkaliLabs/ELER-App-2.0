@@ -58,8 +58,7 @@ public class Konfiguration {
     Map<Raum, List<Platzzuordnung>> result = new HashMap<>();
 
     for ( Platzzuordnung platzzuordnung : platzzuordnungen ) {
-      if ( result.get( platzzuordnung.getPlatz().getRaum() ) == null )
-        result.put( platzzuordnung.getPlatz().getRaum(), new ArrayList<Platzzuordnung>() );
+      result.computeIfAbsent(platzzuordnung.getPlatz().getRaum(), key -> new ArrayList<>());
       result.get( platzzuordnung.getPlatz().getRaum() ).add( platzzuordnung );
     }
 
@@ -93,20 +92,12 @@ public class Konfiguration {
     return getGueltigVon().format( formatter );
   }
 
-  public void setGueltigVon( LocalDateTime gueltigVon ) {
-    this.gueltigVon = gueltigVon;
-  }
-
   public LocalDateTime getGueltigBis() {
     return gueltigBis;
   }
 
   public String getGueltigBisAlsString() {
     return getGueltigBis().format( formatter );
-  }
-
-  public void setGueltigBis( LocalDateTime gueltigBis ) {
-    this.gueltigBis = gueltigBis;
   }
 
   public List<Platzzuordnung> getPlatzzuordnungen() {
@@ -133,6 +124,6 @@ public class Konfiguration {
 
   private Long vorgaengerKonfId;
 
-  private transient DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd. MMMM yyyy", Locale.GERMANY );
+  private final transient DateTimeFormatter formatter = DateTimeFormatter.ofPattern( "dd. MMMM yyyy", Locale.GERMANY );
 
 }

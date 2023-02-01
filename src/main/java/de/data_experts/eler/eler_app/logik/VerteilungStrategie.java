@@ -177,8 +177,7 @@ public class VerteilungStrategie {
     Map<Raum, List<Mitarbeiter>> mitarbeiterJeRaum = new HashMap<>();
 
     for ( Platzzuordnung zuordnung : platzzuordnungen ) {
-      if ( mitarbeiterJeRaum.get( zuordnung.getPlatz().getRaum() ) == null )
-        mitarbeiterJeRaum.put( zuordnung.getPlatz().getRaum(), new ArrayList<Mitarbeiter>() );
+      mitarbeiterJeRaum.computeIfAbsent(zuordnung.getPlatz().getRaum(), key -> new ArrayList<>());
       mitarbeiterJeRaum.get( zuordnung.getPlatz().getRaum() ).add( zuordnung.getMitarbeiter() );
     }
     return mitarbeiterJeRaum;

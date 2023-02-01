@@ -14,27 +14,25 @@
  */
 package de.data_experts.eler.eler_app;
 
+import de.data_experts.eler.eler_app.db.KonfigurationRepository;
+import de.data_experts.eler.eler_app.logik.TuerschildErzeugungStrategie;
+import de.data_experts.eler.eler_app.model.Konfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import de.data_experts.eler.eler_app.db.KonfigurationRepository;
-import de.data_experts.eler.eler_app.logik.TuerschildErzeugungsStrategie;
-import de.data_experts.eler.eler_app.model.Konfiguration;
 
 @Controller
 public class TuerschilderController {
 
-  @GetMapping( "/tuerschilder" )
-  @ResponseBody
-  public String erzeugeTuerschilder( Model model ) {
-    Konfiguration konfiguration = konfigurationRepository.findAktuelle();
-    return new TuerschildErzeugungsStrategie().erstelleTuerschilder( konfiguration );
-  }
+    @GetMapping("/tuerschilder")
+    @ResponseBody
+    public String erzeugeTuerschilder() {
+        Konfiguration konfiguration = konfigurationRepository.findAktuelle();
+        return new TuerschildErzeugungStrategie().erstelleTuerschilder(konfiguration);
+    }
 
-  @Autowired
-  KonfigurationRepository konfigurationRepository;
+    @Autowired
+    KonfigurationRepository konfigurationRepository;
 
 }

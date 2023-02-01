@@ -30,9 +30,11 @@ public class RaumbelegungService {
     // -- public Methoden --------------------------------------------------------
 
     /**
-     * Erzeugt eine neue Konfiguration. Die eingentliche Zufallsverteilung wird durch die VerteilungStrategie erzeugt. Es
+     * Erzeugt eine neue Konfiguration. Die eigentliche Zufallsverteilung der Officers wird durch die VerteilungStrategie erzeugt. Es
      * werden mehrere Zufallsverteilungen erzeugt, von denen die mit der geringsten Ähnlichkeit zur aktuellen
-     * Konfiguration durch die BewertungStragegie ausgewählt wird.
+     * Konfiguration durch die BewertungStrategie ausgewählt wird.
+     * Anschließend werden die Homies auf die übrigen freien Plätze verteilt.
+     * Am Strand werden dabei wenn möglich nur drei Plätze vergeben.
      */
     public Konfiguration generiereKonfiguration(Konfiguration vorherigeKonfiguration) {
         VerteilungStrategie verteilungStrategie = new VerteilungStrategie();
@@ -52,7 +54,7 @@ public class RaumbelegungService {
             }
         }
 
-        fuelleMitHomiesAuf(result);
+        if (result != null) fuelleMitHomiesAuf(result);
 
         return result;
     }
@@ -62,15 +64,32 @@ public class RaumbelegungService {
     private void fuelleMitHomiesAuf(Konfiguration konfiguration) {
         List<Mitarbeiter> homies = mitarbeiterRepository.findByAktivAndIsHomie(true, true);
         List<Platz> plaetze = platzRepository.findAll();
+        List<Platzzuordnung> platzzuordnungen = konfiguration.getPlatzzuordnungen();
 
-        List<Platz> belegtePlaetze = konfiguration.getPlatzzuordnungen().stream().map(Platzzuordnung::getPlatz).collect(Collectors.toList());
-        List<Platz> uebrigePlaetze = plaetze.stream().filter(platz -> !belegtePlaetze.contains(platz)).collect(Collectors.toCollection(ArrayList::new));
+        List<Platz> belegtePlaetze = platzzuordnungen.stream().filter(platzzuordnung -> platzzuordnung.getMitarbeiter() != null).map(Platzzuordnung::getPlatz).collect(Collectors.toList());
+        List<Platz> uebrigePlaetze = ermittleUebrigePlaetze(homies, plaetze, belegtePlaetze);
 
         homies.forEach(homie -> {
             Platz platz = uebrigePlaetze.get(0);
-            konfiguration.getPlatzzuordnungen().add(new Platzzuordnung(platz, homie));
+            platzzuordnungen.add(new Platzzuordnung(platz, homie));
             uebrigePlaetze.remove(platz);
         });
+    }
+
+    private List<Platz> ermittleUebrigePlaetze(List<Mitarbeiter> homies, List<Platz> plaetze, List<Platz> belegtePlaetze) {
+        boolean isPlatz1252ZuEntfernen = (plaetze.size() - belegtePlaetze.size()) > homies.size();
+
+        List<Platz> uebrigePlaetze = new ArrayList<>();
+
+        for (Platz platz : plaetze) {
+            if (belegtePlaetze.contains(platz))
+                continue;
+            if (isPlatz1252ZuEntfernen && platz.getId() == 1252)
+                continue;
+            uebrigePlaetze.add(platz);
+        }
+
+        return uebrigePlaetze;
     }
 
     // -- Getter/Setter ----------------------------------------------------------

@@ -30,24 +30,20 @@ public class UmzugZuordnung {
     return alterPlatzId;
   }
 
-  public long getNeuerPlatzId() {
-    return neuerPlatzId;
-  }
-
   public void setAlterPlatzId( long alterPlatzId ) {
     this.alterPlatzId = alterPlatzId;
   }
 
-  public void setNeuerPlatzId( long neuerPlatzId ) {
-    this.neuerPlatzId = neuerPlatzId;
+  public long getNeuerPlatzId() {
+    return neuerPlatzId;
   }
 
   // -- Attribute --------------------------------------------------------------
 
-  private Mitarbeiter mitarbeiter;
+  private final Mitarbeiter mitarbeiter;
 
   private long alterPlatzId;
 
-  private long neuerPlatzId;
+  private final long neuerPlatzId;
 
 }

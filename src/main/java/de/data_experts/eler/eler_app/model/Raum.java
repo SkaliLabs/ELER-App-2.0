@@ -60,10 +60,6 @@ public class Raum {
     return plaetze;
   }
 
-  public void addPlatz( Platz platz ) {
-    getPlaetze().add( platz );
-  }
-
   // -- Attribute --------------------------------------------------------------
 
   @Id

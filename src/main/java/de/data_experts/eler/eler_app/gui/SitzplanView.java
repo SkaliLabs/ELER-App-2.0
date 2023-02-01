@@ -14,39 +14,38 @@
  */
 package de.data_experts.eler.eler_app.gui;
 
-import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
-import static de.data_experts.eler.eler_app.gui.Styles.HELL;
-import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
-
-import java.util.List;
-
-import com.vaadin.flow.component.Text;
-import de.data_experts.eler.eler_app.logik.ValidierungsService;
-import org.springframework.beans.factory.annotation.Value;
-
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.UnorderedList;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-
 import de.data_experts.eler.eler_app.logik.SitzplanLogik;
+import de.data_experts.eler.eler_app.logik.ValidierungService;
 import de.data_experts.eler.eler_app.mail.EmailService;
 import de.data_experts.eler.eler_app.model.Konfiguration;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.util.List;
+
+import static de.data_experts.eler.eler_app.gui.Styles.DUNKEL;
+import static de.data_experts.eler.eler_app.gui.Styles.HELL;
+import static de.data_experts.eler.eler_app.gui.Styles.MITTEL;
 
 @PageTitle("Sitzplan")
 @Route(value = "", layout = MainView.class)
 public class SitzplanView extends VerticalLayout {
 
-    public SitzplanView(SitzplanLogik sitzplanLogik, EmailService emailService, ValidierungsService validierungsservice) {
+    public SitzplanView(SitzplanLogik sitzplanLogik, EmailService emailService, ValidierungService validierungsservice) {
         this.sitzplanLogik = sitzplanLogik;
 
         H3 titel = new H3(createTitel(sitzplanLogik.getTitel()));
@@ -71,15 +70,18 @@ public class SitzplanView extends VerticalLayout {
         add(umzugButton);
     }
 
-    private ComponentEventListener<ClickEvent<Button>> shuffle(ValidierungsService validierungsservice, EmailService emailService) {
-        return validierungsservice.validiere() ? e -> createSicherheitsabfrageDialog(sitzplanLogik, emailService) : e -> createNichtValideDialog();
+    private ComponentEventListener<ClickEvent<Button>> shuffle(ValidierungService validierungsservice, EmailService emailService) {
+        List<String> fehler = validierungsservice.validiere();
+        return fehler.isEmpty() ? e -> createSicherheitsabfrageDialog(sitzplanLogik, emailService) : e -> createNichtValideDialog(fehler);
     }
 
-    private void createNichtValideDialog() {
+    private void createNichtValideDialog(List<String> fehlertexte) {
         Dialog dialog = new Dialog();
         VerticalLayout layout = new VerticalLayout();
         layout.add(createTitel("Nicht valide Angaben"));
-        layout.add(new Text("Es wurden mehr Mitarbeiter ausgewählt als Plätze verfügbar sind!"));
+        UnorderedList fehlerliste = new UnorderedList();
+        fehlertexte.forEach(fehler -> fehlerliste.add(new Text(fehler)));
+        layout.add(fehlerliste);
         layout.add(createButton("OK", true, e -> dialog.close()));
         dialog.add(layout);
         dialog.open();
@@ -151,14 +153,14 @@ public class SitzplanView extends VerticalLayout {
     private Component getRaum(int raumNr, Fensterseite fensterseite) {
         boolean hatRaumKuechendienst = sitzplanLogik.hatRaumKuechendienst(raumNr);
         String rahmenfarbe = hatRaumKuechendienst ? Styles.DUNKEL : Styles.SCHWARZ;
-        TextField platz1 = createPlatz(raumNr * 10 + 1);
+        TextField platz1 = createPlatz(raumNr * 10L + 1);
         platz1.getStyle().set("border-right", "1px solid " + rahmenfarbe);
         platz1.getStyle().set("border-bottom", "1px solid " + rahmenfarbe);
-        TextField platz2 = createPlatz(raumNr * 10 + 2);
+        TextField platz2 = createPlatz(raumNr * 10L + 2);
         platz2.getStyle().set("border-bottom", "1px solid " + rahmenfarbe);
-        TextField platz3 = createPlatz(raumNr * 10 + 3);
+        TextField platz3 = createPlatz(raumNr * 10L + 3);
         platz3.getStyle().set("border-right", "1px solid " + rahmenfarbe);
-        TextField platz4 = createPlatz(raumNr * 10 + 4);
+        TextField platz4 = createPlatz(raumNr * 10L + 4);
 
         HorizontalLayout reihe1 = createReihe();
         reihe1.add(platz1);
@@ -207,7 +209,7 @@ public class SitzplanView extends VerticalLayout {
             this.bezeichnung = bezeichnung;
         }
 
-        String bezeichnung;
+        final String bezeichnung;
     }
 
     private final SitzplanLogik sitzplanLogik;

@@ -30,8 +30,7 @@ public class BewertungStrategie {
     Map<Mitarbeiter, Set<Mitarbeiter>> nachbarnAlt = ermittleNachbarn( alteKonfigurationen.get( 0 ) );
 
     for ( Mitarbeiter mitarbeiter : nachbarnNeu.keySet() ) {
-      Set<Mitarbeiter> nachbarn = new HashSet<>();
-      nachbarn.addAll( nachbarnNeu.get( mitarbeiter ) );
+      Set<Mitarbeiter> nachbarn = new HashSet<>(nachbarnNeu.get(mitarbeiter));
 
       // Sonderfall: falls ein Mitarbeiter neu ist und noch keine Nachbarn hatte
       if ( nachbarnAlt.get( mitarbeiter ) != null ) {
